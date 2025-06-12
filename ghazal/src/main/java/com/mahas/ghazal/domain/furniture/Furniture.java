@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.imageio.ImageIO;
 import java.util.Set;
 
 @Entity
@@ -27,31 +26,31 @@ public class Furniture extends DomainEntity {
     private String model;
 
     @Column(name = "fur_height")
-    private double height;
+    private Double height;
 
     @Column(name = "fur_width")
-    private double widht;
+    private Double widht;
 
     @Column(name = "fur_depth")
-    private double depth;
+    private Double depth;
 
     @Column(name = "fur_weight")
-    private double weight;
+    private Double weight;
 
     @Column(name = "fur_characteristics")
     private String characteristics;
 
-    @Column(name = "fur_image")
-    private ImageIO image;
+    @Column(name = "fur_image", columnDefinition = "LONGBLOB")
+    private byte[] image;
 
     @Column(name = "fur_price")
-    private double price;
+    private Double price;
 
     @Column(name = "fur_promotion_active")
-    private boolean promotionActive;
+    private Boolean promotionActive;
 
     @Column(name = "fur_promotion_value")
-    private double promotionValue;
+    private Double promotionValue;
 
     @Column(name = "fur_stock")
     private Integer stock;
