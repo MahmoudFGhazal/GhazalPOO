@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Furniture extends DomainEntity {
-
+    //Criar uma tabela separada para os promtions
     @Id
     @GeneratedValue
     @Column(name = "fur_id")
@@ -29,7 +29,7 @@ public class Furniture extends DomainEntity {
     private Double height;
 
     @Column(name = "fur_width")
-    private Double widht;
+    private Double width;
 
     @Column(name = "fur_depth")
     private Double depth;
@@ -45,12 +45,6 @@ public class Furniture extends DomainEntity {
 
     @Column(name = "fur_price")
     private Double price;
-
-    @Column(name = "fur_promotion_active")
-    private Boolean promotionActive;
-
-    @Column(name = "fur_promotion_value")
-    private Double promotionValue;
 
     @Column(name = "fur_stock")
     private Integer stock;

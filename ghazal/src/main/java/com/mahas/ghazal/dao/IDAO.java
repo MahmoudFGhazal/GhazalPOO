@@ -24,6 +24,4 @@ public interface IDAO {
         return Collections.emptyList();
     }
 
-
-
 }

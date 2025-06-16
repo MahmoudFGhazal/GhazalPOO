@@ -1,0 +1,7 @@
+(strategy = GenerationType.AUTO)
+not null/cascade?
+
+
+ghazal:
+carrinho
+criar tabela promotions?
