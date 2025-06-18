@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mahas.ghazal.dao.IDAO;
 import com.mahas.ghazal.dao.furniture.FurnitureDAO;
+import com.mahas.ghazal.dao.user.UserDAO;
 import com.mahas.ghazal.domain.furniture.Furniture;
+import com.mahas.ghazal.domain.user.User;
 
 import jakarta.annotation.PostConstruct;
 
@@ -16,11 +18,15 @@ public abstract class FacadeAbstract {
     @Autowired
     private FurnitureDAO furnitureDAO;
 
+    @Autowired
+    private UserDAO userDAO;
+
     protected final Map<String, IDAO> daos = new HashMap<>();
 
     @PostConstruct
     public void initDaos(){
         daos.put(Furniture.class.getName(), furnitureDAO);
+        daos.put(User.class.getName(), userDAO);
     }
 
 }

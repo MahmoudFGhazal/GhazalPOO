@@ -31,7 +31,8 @@ CREATE TABLE users (
     usr_email VARCHAR(100) NOT NULL UNIQUE,
     usr_password VARCHAR(100) NOT NULL,
     usr_nome VARCHAR(100) NOT NULL,
-    usr_cpf VARCHAR(15) UNIQUE
+    usr_cpf VARCHAR(15) UNIQUE,
+    usr_birthday DATE,
 );
 
 CREATE TABLE favorites (

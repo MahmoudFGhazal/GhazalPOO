@@ -13,20 +13,14 @@ import com.mahas.ghazal.facade.Facade;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @Controller
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/furniture")
 public class FurnitureController {
 
     @Autowired
     private Facade facade;
-
-    public String getMethodName(@RequestParam String param) {
-        return new String();
-    }
     
     //Garantir que so ira retornar uma variavel
     @GetMapping("/{id}")
@@ -42,9 +36,7 @@ public class FurnitureController {
     @GetMapping
     public ResponseEntity getAll(){
         Furniture furniture = new Furniture();
-        System.out.println(furniture);
         List<DomainEntity> furnitures = facade.query(furniture);
-
         return ResponseEntity.ok(furnitures);
     }
 

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
 import com.mahas.ghazal.dao.IDAO;
 import com.mahas.ghazal.domain.DomainEntity;
 import com.mahas.ghazal.domain.furniture.Material;
@@ -13,6 +15,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 
+@Component
 public class MaterialDAO implements IDAO {
     @PersistenceContext
     private EntityManager entityManager;

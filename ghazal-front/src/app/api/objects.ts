@@ -45,6 +45,8 @@ export interface User {
     id: number,
     email: string,
     password: string,
+    birthday: Date,
+    cpf: string,
 }
 
 export interface Favorite {
@@ -64,3 +66,8 @@ export type ListMaterial = Material[];
 export type ListColor = Color[];
 
 export type Datas = Furniture | User | Favorite | FurnitureType | Manufacturer | Category | Material | Color;
+
+export interface LoginRequest {
+    email: string,
+    password: string,
+}

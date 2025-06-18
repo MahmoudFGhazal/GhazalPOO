@@ -6,11 +6,11 @@ import Link from "next/link";
 import styles from "./header.module.css";
 import Logo from "@/../public/assets/Logo-Simples.jpg";
 
-export function Header(){
+export default function Header(){
     return(
         <header className={styles.header}>
             <div className={styles.startContainer}>
-                <Link href={'/catalogo'}>
+                <Link className={styles.link} href={'/catalogo'}>
                     <p>Catálogo</p>
                 </Link>
             </div>
@@ -21,6 +21,9 @@ export function Header(){
                     src={Logo}
                     priority={true}
                 />
+                <Link className={styles.link} href={'/login'}>
+                    <p>Login</p>
+                </Link>
             </div>
 
         </header>

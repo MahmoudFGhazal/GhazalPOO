@@ -1,0 +1,19 @@
+
+.favoriteIconContent{
+    width: fit-content;
+    height: fit-content;
+}
+
+.favoriteIcon{
+    position: absolute;
+}
+
+.favoriteHidden{
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.favoriteVisible{
+    opacity: 1;
+    transition: opacity 0.3s;
+}

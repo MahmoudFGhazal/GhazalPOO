@@ -14,14 +14,21 @@ async function request<T>(method: Method, url: string, data?: Datas): Promise<T>
         body: data ? JSON.stringify(data) : undefined,
     };
 
-    const res = await fetch(`${BASE_URL}${url}`, options);
+    let res: any;
 
-    if(!res.ok){
-        const error = await res.text();
-        throw new Error(error || "Erro na requisição");
+    try{
+        res = await fetch(`${BASE_URL}${url}`, options);
+    
+        if(!res.ok){
+            const error = await res.text();
+            throw new Error(error || "Erro na requisição");
+        }
+
+        return await res.json();
+    } catch(error){
+        console.error("Erro na Requisição", error);
+        throw error;   
     }
-
-    return res.json();
 }
 
 const api = {
