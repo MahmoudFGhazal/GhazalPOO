@@ -1,9 +1,9 @@
 'use client'
 import styles from "./page.module.css";
-import api from "@/app/api/route";
+import api from "@/api/route";
 import { useEffect, useState } from "react";
 
-import { ListFurniture } from "@/app/api/objects";
+import { ListFurniture } from "@/api/objects";
 import Item from "@/components/item";
 
 export default function Catalogo(){
@@ -13,8 +13,12 @@ export default function Catalogo(){
     useEffect(() => {
         async function getAllFurnitures() {
             const data = await api.get<ListFurniture>("/furniture");
-            setFurnitures(data);
-            setCurrentFurnitures(data);
+            
+            console.log(data);
+            if(data){
+                setFurnitures(data);
+                setCurrentFurnitures(data);
+            }
         }
 
         getAllFurnitures();

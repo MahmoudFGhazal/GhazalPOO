@@ -1,3 +1,8 @@
+export interface Response {
+    entities: Datas,
+    message: string,
+}
+
 export interface Furniture {
     id: number,
     model: string,
@@ -45,7 +50,7 @@ export interface User {
     id: number,
     email: string,
     password: string,
-    birthday: Date,
+    name: string,
     cpf: string,
 }
 
@@ -65,9 +70,7 @@ export type ListMaterial = Material[];
 
 export type ListColor = Color[];
 
+export type ListUser = User[];
+
 export type Datas = Furniture | User | Favorite | FurnitureType | Manufacturer | Category | Material | Color;
 
-export interface LoginRequest {
-    email: string,
-    password: string,
-}

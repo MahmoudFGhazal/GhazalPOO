@@ -1,12 +1,12 @@
 package com.mahas.ghazal.controller;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mahas.ghazal.domain.DomainEntity;
+import com.mahas.ghazal.domain.FacadeRequest;
+import com.mahas.ghazal.domain.FacadeResponse;
 import com.mahas.ghazal.domain.furniture.Furniture;
 import com.mahas.ghazal.facade.Facade;
 
@@ -28,16 +28,24 @@ public class FurnitureController {
         Furniture furniture = new Furniture();
         furniture.setId(id);   
 
-        List<DomainEntity> furnitures = facade.query(furniture);
+        FacadeRequest facadeRequest = new FacadeRequest();
+        facadeRequest.setEntity(furniture);
 
-        return ResponseEntity.ok(furnitures);
+        FacadeResponse facadeResponse = facade.query(facadeRequest);
+
+        return ResponseEntity.ok(facadeResponse);
     }
 
     @GetMapping
     public ResponseEntity getAll(){
         Furniture furniture = new Furniture();
-        List<DomainEntity> furnitures = facade.query(furniture);
-        return ResponseEntity.ok(furnitures);
+
+        FacadeRequest facadeRequest = new FacadeRequest();
+        facadeRequest.setEntity(furniture);
+
+        FacadeResponse facadeResponse = facade.query(facadeRequest);
+
+        return ResponseEntity.ok(facadeResponse);
     }
 
 }

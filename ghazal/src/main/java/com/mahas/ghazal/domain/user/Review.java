@@ -1,8 +1,6 @@
-package com.mahas.ghazal.domain.furniture;
+package com.mahas.ghazal.domain.user;
 
-import java.time.LocalDate;
-
-import com.mahas.ghazal.domain.DomainEntity;
+import com.mahas.ghazal.domain.furniture.Furniture;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,32 +15,29 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "sales")
-@Getter
+@Table(name = "reviews")
+@Getter 
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Sale extends DomainEntity {
+public class Review {
 
     @Id
     @GeneratedValue
-    @Column(name = "sal_id")
+    @Column(name = "rev_id")
     private Integer id;
 
-    @Column(name = "sal_active")
-    private Boolean active;
+    @Column(name = "rev_rating")
+    private double rating;
 
-    @Column(name = "sal_value")
-    private Double value;
-
-    @Column(name = "sal_start_day")
-    private LocalDate startDay;
-
-    @Column(name = "sal_final_day")
-    private LocalDate finalDay;
+    @Column(name = "rev_comment")
+    private String comment;
 
     @ManyToOne
-    @JoinColumn(name = "sal_fur_id")
-    private Furniture furniture;
+    @JoinColumn(name = "rev_usr_id")
+    private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "rev_fur_id")
+    private Furniture furniture;
 }

@@ -1,7 +1,5 @@
 package com.mahas.ghazal.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -10,7 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mahas.ghazal.domain.DomainEntity;
+import com.mahas.ghazal.command.ICommand;
+import com.mahas.ghazal.command.rules.user.Login;
+import com.mahas.ghazal.domain.FacadeRequest;
+import com.mahas.ghazal.domain.FacadeResponse;
 import com.mahas.ghazal.domain.user.User;
 import com.mahas.ghazal.facade.Facade;
 
@@ -22,17 +23,21 @@ public class UserController {
     @Autowired
     private Facade facade;
 
-    @GetMapping({"/{email}", "/{email}/{password}"})
-    public ResponseEntity getUser(@PathVariable String email, @PathVariable(required = false) String password){
+    @GetMapping({"/{email}/{password}"})
+    public ResponseEntity Login(@PathVariable String email, @PathVariable String password){
         User user = new User();
         user.setEmail(email);
+        user.setPassword(password);
 
-        if(password != null){
-            user.setPassword(password);
-        }
+        FacadeRequest facadeRequest = new FacadeRequest();
+        facadeRequest.setEntity(user);
 
-        List<DomainEntity> users = facade.query(user);
-        return ResponseEntity.ok(users);
+        ICommand[] commands = new ICommand[]{new Login()};
+        facadeRequest.setCommands(commands);
+
+        FacadeResponse facadeResponse = facade.query(facadeRequest);
+
+        return ResponseEntity.ok(facadeResponse);
     }
 
 }

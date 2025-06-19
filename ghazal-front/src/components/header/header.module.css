@@ -13,18 +13,18 @@
 
 .link {
     font-size: 18px;
-    user-select: none;
     text-decoration: none;
     color: inherit;
 }
 
-.link p{
+.pointer{
+    user-select: none;
     border-radius:16px;
     padding: 2px 5px;
     transition: all 0.2s;
 }
 
-.link p:hover {
+.pointer:hover {
     transform: scale(1.05);
     background-color: rgba(224, 224, 224, 0.5);
 }

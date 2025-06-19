@@ -1,9 +1,9 @@
 'use client'
-import { Furniture, ListFurniture } from "@/app/api/objects";
+import { Furniture, ListFurniture } from "@/api/objects";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
-import api from "@/app/api/route";
+import api from "@/api/route";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Favorite from "@/components/favorite";

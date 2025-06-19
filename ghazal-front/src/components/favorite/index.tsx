@@ -2,7 +2,7 @@ import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { useState } from "react";
 
 import styles from "./favorite.module.css";
-import { Furniture } from "@/app/api/objects";
+import { Furniture } from "@/api/objects";
 
 export default function Favorite({id, size}: {id: number, size: number}){
     const [favoriteIcon, setFavoriteIcon] = useState<boolean>(false);

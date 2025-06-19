@@ -33,8 +33,8 @@ public class User extends DomainEntity {
     @Column(name = "usr_password")
     private String password;
 
-    @Column(name = "usr_birthday")
-    private LocalDate birthday;
+    @Column(name = "usr_name")
+    private String name;
 
     @Column(name = "usr_cpf")
     private String cpf;

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import styles from "./item.module.css";
-import { Furniture } from "@/app/api/objects";
+import { Furniture } from "@/api/objects";
 import Favorite from "@/components/favorite";
 
 export default function Item({f}: {f: Furniture}){

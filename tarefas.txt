@@ -5,3 +5,6 @@ not null/cascade?
 ghazal:
 carrinho
 criar tabela promotions?
+colocar o tipo de erro no response
+color simples
+sistemas de exceptions

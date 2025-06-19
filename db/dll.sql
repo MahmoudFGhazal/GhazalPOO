@@ -30,9 +30,8 @@ CREATE TABLE users (
     usr_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     usr_email VARCHAR(100) NOT NULL UNIQUE,
     usr_password VARCHAR(100) NOT NULL,
-    usr_nome VARCHAR(100) NOT NULL,
+    usr_name VARCHAR(100) NOT NULL,
     usr_cpf VARCHAR(15) UNIQUE,
-    usr_birthday DATE,
 );
 
 CREATE TABLE favorites (
@@ -68,17 +67,20 @@ CREATE TABLE furnitures (
         FOREIGN KEY (fur_man_id) REFERENCES manufacturers(man_id)
 );
 
-CREATE TABLE sales (
-    sal_id INT NOT NULL PRIMARY KEY,
-    sal_active BOOLEAN NOT NULL,
-    sal_final_day DATE NOT NULL,
-    sal_start_day DATE NOT NULL,
-    sal_value DECIMAL(5,3) NOT NULL,
-    sal_fur_id INT NOT NULL,
+CREATE TABLE reviews (
+    rev_id INT PRIMARY KEY,
+    rev_ranting DECIMAL(4,2),
+    rev_comment VARCHAR(255),
+    rev_usr_id INT NOT NULL,
+    rev_fur_id INT NOT NULL,
 
-    CONSTRAINT fk_sal_fur
-        FOREIGN KEY (sal_fur_id) REFERENCES sales(sal_id)
-        ON DELETE CASCADE
+    CONSTRAINT fk_rev_usr
+        FOREIGN KEY (rev_usr_id) REFERENCES users(usr_id)
+        ON DELETE CASCADE;
+
+    CONSTRAINT fk_rev_fur
+        FOREIGN KEY (rev_fur_id) REFERENCES furnitures(fur_id)
+        ON DELETE CASCADE;
 );
 
 CREATE TABLE favorites_furnitures (

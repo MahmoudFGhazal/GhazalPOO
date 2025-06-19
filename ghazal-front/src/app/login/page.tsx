@@ -1,24 +1,57 @@
 'use client'
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import styles from "./page.module.css";
-import { LoginRequest } from "../api/objects";
+
+import handleLogin from "@/services/handleLogin";
+import { useRouter } from "next/navigation";
+import { User } from "@/api/objects";
+import Cookies from "js-cookie";
+import { verifySession } from "@/services/session";
 
 export default function Login(){
+    const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    useEffect(() => {
+        async function getSession(){
+            const cookie = Cookies.get('session');
+            if(cookie){
+                const user: User = await verifySession();
+                if(user){
+                    router.push('/catalogo');
+                }
+            }
+        }
+
+        getSession();
+    }, []);
+
     function handleSubmit(event: FormEvent<HTMLFormElement>){
         event.preventDefault();
-        const user: LoginRequest = {email, password};
 
-        console.log(user);
-        
+        if(!email || !password){
+            alert("Algum campo vazio");
+            return;
+        }
+
+        async function Login() {
+            const result = await handleLogin(email, password);
+            if(result && !result.success){
+                alert(result.message);
+            }else{
+                window.dispatchEvent(new Event('session-changed'));
+                router.push('/catalogo');
+            }
+        }
+
+        Login();
     }
 
     return(
         <div className={styles.container}>
             <h1>Login</h1>
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
                 <div className={styles.input}>
                     <p>E-mail:</p>
                     <input
@@ -37,7 +70,7 @@ export default function Login(){
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button className={styles.button}>Enviar</button>
+                <button type="submit" className={styles.button}>Enviar</button>
             </form>
         </div>
     );

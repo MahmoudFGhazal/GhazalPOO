@@ -1,10 +1,10 @@
-import { Datas } from "./objects";
+import { Datas, Response } from "./objects";
 
 type Method = "GET" | "POST" | "PUT" | "DELETE";
 
 const BASE_URL = "http://localhost:8080";
 
-async function request<T>(method: Method, url: string, data?: Datas): Promise<T> {
+async function request<Datas>(method: Method, url: string, data?: Datas): Promise<Datas> {
     //No Header: Colcoar o Authorization
     const options: RequestInit = {
         method,
@@ -14,17 +14,21 @@ async function request<T>(method: Method, url: string, data?: Datas): Promise<T>
         body: data ? JSON.stringify(data) : undefined,
     };
 
-    let res: any;
-
     try{
-        res = await fetch(`${BASE_URL}${url}`, options);
+        const res = await fetch(`${BASE_URL}${url}`, options);
     
         if(!res.ok){
             const error = await res.text();
             throw new Error(error || "Erro na requisição");
         }
 
-        return await res.json();
+        const json = await res.json();
+
+        if(json.message){
+            console.log(json.message);
+        }
+
+        return await json.entities as Datas;
     } catch(error){
         console.error("Erro na Requisição", error);
         throw error;   

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
+import com.mahas.ghazal.domain.FacadeResponse;
 import com.mahas.ghazal.domain.furniture.Furniture;
 import com.mahas.ghazal.domain.user.User;
 
@@ -24,22 +25,21 @@ public class UserControllerTest {
 
     @Test
     public void getUserTest(){
-        ResponseEntity<?> response = controller.getUser("admin@gmail.com", null);
+        ResponseEntity<?> response = controller.Login("admin@gmail.com", "n");
 
         assertNotNull(response, "resposta Não pode ser nula");
 
         Object body = response.getBody();
         assertNotNull(body, "corpo Não pode ser nula");
-        assertTrue(body instanceof List, "corpo deve ser uma lista");
+        assertTrue(body instanceof FacadeResponse, "corpo deve ser uma lista");
 
-        List<?> list = (List<?>) body;
-        if(!list.isEmpty()){
-            assertTrue(list.get(0) instanceof User, "Item tem que ser um user");
-            for(int i = 0; i < list.size(); i++){
-                System.out.println(list.get(i).getClass());
-            }
-        }
+        FacadeResponse facadeResponse = (FacadeResponse) body;
+
+
+
         
+        System.out.println(facadeResponse.getMessage());
+                
     }
 
 }

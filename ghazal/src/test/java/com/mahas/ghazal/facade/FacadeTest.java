@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import jakarta.transaction.Transactional;
 
 import com.mahas.ghazal.domain.DomainEntity;
+import com.mahas.ghazal.domain.FacadeRequest;
+import com.mahas.ghazal.domain.FacadeResponse;
 import com.mahas.ghazal.domain.furniture.Furniture;
 import com.mahas.ghazal.domain.furniture.Category;
 import com.mahas.ghazal.facade.Facade;
@@ -32,9 +34,11 @@ public class FacadeTest {
         Set<Category> categories = new HashSet();
         categories.add(category);
         furniture.setCategories(categories);
+        FacadeRequest request = new FacadeRequest();
+        request.setEntity(furniture);
 
-        List<DomainEntity> result = facade.query(furniture);
-        List<Furniture> furnitures = (List<Furniture>) (List<?>) result;
+        FacadeResponse result = facade.query(request);
+        List<Furniture> furnitures = (List<Furniture>) (List<?>) result.getEntities();
 
         System.out.println("Moveis");
         furnitures.forEach(f ->
