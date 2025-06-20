@@ -1,6 +1,5 @@
 package com.mahas.ghazal.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
-import com.mahas.ghazal.domain.DomainEntity;
 import com.mahas.ghazal.domain.furniture.Furniture;
 
 import jakarta.transaction.Transactional;

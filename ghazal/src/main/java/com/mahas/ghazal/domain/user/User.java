@@ -1,7 +1,5 @@
 package com.mahas.ghazal.domain.user;
 
-import java.time.LocalDate;
-
 import com.mahas.ghazal.domain.DomainEntity;
 
 import jakarta.persistence.Column;

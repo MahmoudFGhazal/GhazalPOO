@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { User } from "@/api/objects";
 import Cookies from "js-cookie";
 import { verifySession } from "@/services/session";
+import Link from "next/link";
 
 export default function Login(){
     const router = useRouter();
@@ -70,8 +71,14 @@ export default function Login(){
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button type="submit" className={styles.button}>Enviar</button>
+                <button type="submit" className={`${styles.button} ${styles.submitButton}`}>Enviar</button>
             </form>
+            <Link 
+                href={"/cadastrar"}
+                className={styles.signInLink}
+            >
+                <button className={`${styles.button} ${styles.signIn}`}>Cadastrar</button>
+            </Link>
         </div>
     );
 }

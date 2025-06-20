@@ -7,12 +7,12 @@ import com.mahas.ghazal.domain.DomainEntity;
 
 public interface IDAO {
 
-    default public void save(DomainEntity entity){
-       
+    default public Boolean save(DomainEntity entity){
+       return false;
     }
 
-    default public void delete(DomainEntity entity){
-       
+    default public Boolean delete(DomainEntity entity){
+       return false;
     }
 
     default public void uptade(DomainEntity entity){

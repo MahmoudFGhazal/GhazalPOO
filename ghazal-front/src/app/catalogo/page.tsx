@@ -14,7 +14,6 @@ export default function Catalogo(){
         async function getAllFurnitures() {
             const data = await api.get<ListFurniture>("/furniture");
             
-            console.log(data);
             if(data){
                 setFurnitures(data);
                 setCurrentFurnitures(data);

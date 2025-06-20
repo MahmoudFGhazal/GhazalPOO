@@ -23,7 +23,7 @@ async function decrypt(input: string): Promise<any> {
 export async function createSession(data: ListUser){
     const user: User = data[0];
 
-    const expires = new Date(Date.now() + 60 * 60 * 10);
+    const expires = new Date(Date.now() + 60 * 60 * 1000);
     const session = await encrypt({user, expires});
 
     const cookieStore = await cookies();

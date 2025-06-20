@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mahas.ghazal.command.Command;
 import com.mahas.ghazal.command.ICommand;
@@ -29,28 +30,54 @@ public class Facade extends FacadeAbstract {
         return facadeResponse;
     }
 
-    public void save(DomainEntity entity){
+    @Transactional
+    public FacadeResponse save(FacadeRequest facadeRequest){
+        DomainEntity entity = facadeRequest.getEntity();
+
         String nameEntity = entity.getClass().getName();
 
         IDAO dao = daos.get(nameEntity);
+        FacadeResponse facadeResponse = new FacadeResponse();
+
         if(dao == null){
-            //Criar Exception DAO n existe
-            System.out.println(nameEntity + "não exite");
+            facadeResponse.setMessage(nameEntity + "não existe");
+            return facadeResponse;
         }
 
-        dao.save(entity);
+        Boolean result = dao.save(entity);
+
+        if(result) {
+            facadeResponse = runRules(facadeRequest, facadeResponse);
+            return facadeResponse;
+        }
+
+        facadeResponse.setMessage("Não foi possivel fazer o insert no banco");
+        return facadeResponse;
     }
 
-    public void delete(DomainEntity entity){
+    @Transactional
+    public FacadeResponse delete(FacadeRequest facadeRequest){
+        DomainEntity entity = facadeRequest.getEntity();
+
         String nameEntity = entity.getClass().getName();
 
         IDAO dao = daos.get(nameEntity);
+        FacadeResponse facadeResponse = new FacadeResponse();
+
         if(dao == null){
-            //Criar Exception DAO n existe
-            System.out.println(nameEntity + "não exite");
+            facadeResponse.setMessage(nameEntity + "não existe");
+            return facadeResponse;
         }
 
-        dao.delete(entity);
+        Boolean result = dao.delete(entity);
+
+        if(result) {
+            facadeResponse = runRules(facadeRequest, facadeResponse);
+            return facadeResponse;
+        }
+
+        facadeResponse.setMessage("Delete não concluido");
+        return facadeResponse;
     }
 
     public void update(DomainEntity entity){
@@ -71,14 +98,15 @@ public class Facade extends FacadeAbstract {
         String nameEntity = entity.getClass().getName();
 
         IDAO dao = daos.get(nameEntity);
+        FacadeResponse facadeResponse = new FacadeResponse();
+
         if(dao == null){
-            //Criar Exception DAO n existe
-            System.out.println(nameEntity + "não exite");
+            facadeResponse.setMessage(nameEntity + "não existe");
+            return facadeResponse;
         }
         
         List<DomainEntity> entities = dao.query(entity);
 
-        FacadeResponse facadeResponse = new FacadeResponse();
         facadeResponse.setEntities(entities);
 
         facadeResponse = runRules(facadeRequest, facadeResponse);

@@ -5,10 +5,11 @@
     justify-content: center;
     flex-direction: column;
     padding: 100px;
-    gap: 35px;
 }
 
 .form{
+    margin-top: 35px;
+    margin-bottom: 10px;
     display: flex;
     flex-direction: column;
     gap: 25px 0;
@@ -37,13 +38,33 @@
     font-size: 16px;
     margin-top: 10px;
     border-radius: 8px;
-    background-color: #3078FF;
-    color: #F9F9F9;
     border: none;
     transition: background-color 1s;
     cursor: pointer;
 }
 
-.button:hover{
+.signInLink{
+    width: 50vw;
+    max-width: 350px;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.submitButton{
+    background-color: #3078FF;
+    color: #F9F9F9;
+}
+
+.submitButton:hover{
     background-color: #449EFF;
+}
+
+.signIn{
+    background-color: #bcbec0;
+    color: #000000;
+}
+
+.signIn:hover{
+    background-color: #d8d8d8;
 }

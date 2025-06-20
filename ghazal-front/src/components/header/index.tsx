@@ -14,6 +14,7 @@ export default function Header(){
     const [session, setSession] = useState<string | null>(null);
     const pathname = usePathname();
     const isCatalogo = pathname === '/catalogo';
+    const isFavorite = pathname === '/favoritos';
 
     useEffect(() => {
         async function getSession(){
@@ -55,7 +56,7 @@ export default function Header(){
                         <p className={styles.pointer}>Catálogo</p>
                     </Link>
                 }
-                {session !== null &&
+                {(session !== null && !isFavorite) &&
                     <Link className={styles.link} href={'/favoritos'}>
                         <p className={styles.pointer}>Favoritos</p>
                     </Link>

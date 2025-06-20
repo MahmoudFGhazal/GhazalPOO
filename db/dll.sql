@@ -31,7 +31,7 @@ CREATE TABLE users (
     usr_email VARCHAR(100) NOT NULL UNIQUE,
     usr_password VARCHAR(100) NOT NULL,
     usr_name VARCHAR(100) NOT NULL,
-    usr_cpf VARCHAR(15) UNIQUE,
+    usr_cpf VARCHAR(15) UNIQUE
 );
 
 CREATE TABLE favorites (
@@ -76,11 +76,11 @@ CREATE TABLE reviews (
 
     CONSTRAINT fk_rev_usr
         FOREIGN KEY (rev_usr_id) REFERENCES users(usr_id)
-        ON DELETE CASCADE;
+        ON DELETE CASCADE,
 
     CONSTRAINT fk_rev_fur
         FOREIGN KEY (rev_fur_id) REFERENCES furnitures(fur_id)
-        ON DELETE CASCADE;
+        ON DELETE CASCADE
 );
 
 CREATE TABLE favorites_furnitures (

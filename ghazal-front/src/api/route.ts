@@ -16,7 +16,6 @@ async function request<Datas>(method: Method, url: string, data?: Datas): Promis
 
     try{
         const res = await fetch(`${BASE_URL}${url}`, options);
-    
         if(!res.ok){
             const error = await res.text();
             throw new Error(error || "Erro na requisição");

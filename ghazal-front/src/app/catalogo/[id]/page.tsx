@@ -23,10 +23,6 @@ export default function Movel(){
         getFurniture();
     }, []);
 
-    useEffect(() => {
-        console.log(furniture);
-    }, [furniture]);
-
     if (!furniture) return <p>Carregando móvel... </p>;
 
     return(

@@ -59,9 +59,9 @@ INSERT INTO furnitures_categories (fca_cat_id, fca_fur_id) VALUES
 INSERT INTO furnitures_materials (fma_mat_id, fma_fur_id) VALUES
 (2,1),(1,2),(2,3),(1,4),(2,5),(1,6),(3,7),(2,8),(1,9),(2,10);
 
-insert into users (usr_email, usr_password, usr_nome, usr_cpf) values 
+insert into users (usr_email, usr_password, usr_name, usr_cpf) values 
 	("admin@gmail.com", "1234", "Admin", "123.456.789-90");
 
 insert into favorites (fav_usr_id) values (1);
 
-insert into favorites_furnitures (far_fav_id, far_fur_id) values (1, 3);
+insert into favorites_furnitures (far_fav_id, far_fur_id) values (1, 3), (1,5);

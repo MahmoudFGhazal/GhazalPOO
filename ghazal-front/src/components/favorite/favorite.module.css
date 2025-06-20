@@ -1,7 +1,9 @@
 
 .favoriteIconContent{
+    z-index: 10;
     width: fit-content;
     height: fit-content;
+    cursor: pointer;
 }
 
 .favoriteIcon{
@@ -17,3 +19,4 @@
     opacity: 1;
     transition: opacity 0.3s;
 }
+

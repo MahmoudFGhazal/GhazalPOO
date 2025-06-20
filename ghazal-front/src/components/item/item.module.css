@@ -46,9 +46,11 @@
     font-size: 15px;
     height: 16px;
     width: fit-content;
+    color: #BB2024;
 }
 
 .showMore{
+    color: #808183;
     background-color: #F9F9F9;
 }
 
