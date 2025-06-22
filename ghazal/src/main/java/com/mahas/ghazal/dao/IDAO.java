@@ -15,12 +15,11 @@ public interface IDAO {
        return false;
     }
 
-    default public void uptade(DomainEntity entity){
-       
+    default public Boolean uptade(DomainEntity entity){
+        return false;
     }
 
     default public List<DomainEntity> query(DomainEntity entity){
-       
         return Collections.emptyList();
     }
 

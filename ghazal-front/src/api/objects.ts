@@ -74,5 +74,5 @@ export type ListUser = User[];
 
 export type ListFavorite = Favorite[];
 
-export type Datas = Furniture | User | Favorite | FurnitureType | Manufacturer | Category | Material | Color;
+export type Datas = Furniture | User | Favorite | FurnitureType | Manufacturer | Category | Material | Color | ListCategory | ListColor | ListFavorite | ListFurniture | ListFurnitureType | ListMaterial | ListUser;
 

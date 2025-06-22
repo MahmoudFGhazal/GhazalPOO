@@ -3,9 +3,11 @@ import handleSign from "@/services/handleSign";
 import styles from "./page.module.css";
 import { FormEvent, useState } from "react";
 import api from "@/api/route";
-import { User } from "next-auth";
+import { Response, User } from "@/api/objects";
+import { useRouter } from "next/navigation";
 
 export default function Cadastrar(){
+    const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confPassword, setConfPassword] = useState('');
@@ -21,12 +23,38 @@ export default function Cadastrar(){
                 alert(result);
                 return;
             }
+            const user: User = {
+                id: 0,
+                email: email,
+                password: password,
+                name: name,
+                cpf: cpf,
+            }
 
-            await api.put<User>(`/user`);
+            const res: Response = await api.put<Response>(`/user`, user);
+            
+            if(res.message != null){
+                alert(res.message);
+            }else{
+                alert("Cadastrado com sucesso");
+                router.push('/login');
+            }
 
+            
         }
 
         SignIn();
+    }
+
+    function formatCpf(value: string): string {
+        const digits = value.replace(/\D/g, '').slice(0,11);
+
+        const formatted = digits
+            .replace(/(\d{3})(\d)/, '$1.$2')
+            .replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3')
+            .replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, '$1.$2.$3-$4');
+    
+        return formatted;
     }
 
     return(
@@ -73,7 +101,7 @@ export default function Cadastrar(){
                     <p>CPF:</p>
                     <input
                         value={cpf}
-                        onChange={(e) => setCpf(e.target.value)}
+                        onChange={(e) => setCpf(formatCpf(e.target.value))}
                         type="text"
                         placeholder="CPF"
                     />

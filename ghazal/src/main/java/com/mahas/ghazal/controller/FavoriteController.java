@@ -69,7 +69,7 @@ public class FavoriteController {
     }
 
     @PutMapping("/{usr_id}/{fur_id}")
-    public ResponseEntity putFavorite(@PathVariable Integer usr_id, @PathVariable Integer fur_id) {
+    public ResponseEntity putFavorite(@PathVariable Integer usr_id, @PathVariable Integer fur_id) {        
         User user = new User();
         user.setId(usr_id);
 

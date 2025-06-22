@@ -4,7 +4,7 @@ type Method = "GET" | "POST" | "PUT" | "DELETE";
 
 const BASE_URL = "http://localhost:8080";
 
-async function request<Datas>(method: Method, url: string, data?: Datas): Promise<Datas> {
+async function request<Response>(method: Method, url: string, data?: Datas): Promise<Response> {
     //No Header: Colcoar o Authorization
     const options: RequestInit = {
         method,
@@ -21,13 +21,9 @@ async function request<Datas>(method: Method, url: string, data?: Datas): Promis
             throw new Error(error || "Erro na requisição");
         }
 
-        const json = await res.json();
+        const json: Response = await res.json();
 
-        if(json.message){
-            console.log(json.message);
-        }
-
-        return await json.entities as Datas;
+        return await json;
     } catch(error){
         console.error("Erro na Requisição", error);
         throw error;   
@@ -35,10 +31,10 @@ async function request<Datas>(method: Method, url: string, data?: Datas): Promis
 }
 
 const api = {
-    get: <T>(url: string) => request<T>("GET", url),
-    post: <T>(url: string) => request<T>("POST", url),
-    put: <T>(url: string) => request<T>("PUT", url),
-    delete: <T>(url: string) => request<T>("DELETE", url),
+    get: <Response>(url: string, data?: Datas) => request<Response>("GET", url, data),
+    post: <Response>(url: string, data?: Datas) => request<Response>("POST", url, data),
+    put: <Response>(url: string, data?: Datas) => request<Response>("PUT", url, data),
+    delete: <Response>(url: string, data?: Datas) => request<Response>("DELETE", url, data),
 }
 
 export default api;

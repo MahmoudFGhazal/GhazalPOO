@@ -11,7 +11,6 @@ public class Command {
     }
     
     public FacadeResponse execute(FacadeRequest request, FacadeResponse response){
-        command.execute(request, response);
-        return response;
+        return command.execute(request, response);
     }
 }

@@ -1,5 +1,5 @@
 'use client'
-import { Furniture, ListFurniture } from "@/api/objects";
+import { Furniture, ListFurniture, Response } from "@/api/objects";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
@@ -16,7 +16,9 @@ export default function Movel(){
 
     useEffect(() => {
         async function getFurniture() {
-            const data = await api.get<ListFurniture>(`/furniture/${id}`);
+            const res: Response = await api.get<Response>(`/furniture/${id}`);
+            const data: ListFurniture = res.entities as ListFurniture; 
+            
             setFurniture(data[0]);
         }
 

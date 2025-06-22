@@ -16,18 +16,18 @@ import com.mahas.ghazal.domain.FacadeResponse;
 @Component
 public class Facade extends FacadeAbstract {
 
-    public FacadeResponse runRules(FacadeRequest request, FacadeResponse facadeResponse){
+    public FacadeResponse runRules(FacadeRequest request, FacadeResponse response){
         ICommand[] commands = request.getCommands(); 
-        if(commands == null || commands.length == 0) return facadeResponse;
+        if(commands == null || commands.length == 0) return response;
         
         for(ICommand c : commands){
             Command command = new Command();
             command.setCommand(c);
-            facadeResponse = command.execute(request, facadeResponse);
-            if(!Optional.ofNullable(facadeResponse.getMessage()).orElse("").isBlank()) break;
+            response = command.execute(request, response);
+            if(!Optional.ofNullable(response.getMessage()).orElse("").isBlank()) break;
         }
 
-        return facadeResponse;
+        return response;
     }
 
     @Transactional
@@ -44,14 +44,19 @@ public class Facade extends FacadeAbstract {
             return facadeResponse;
         }
 
+        facadeResponse = runRules(facadeRequest, facadeResponse);
+        
+        if(facadeResponse.getMessage() != null){
+            return facadeResponse;
+        }
+        
         Boolean result = dao.save(entity);
 
-        if(result) {
-            facadeResponse = runRules(facadeRequest, facadeResponse);
+        if(!result){
+            facadeResponse.setMessage("Não foi possivel fazer o insert no banco");
             return facadeResponse;
         }
 
-        facadeResponse.setMessage("Não foi possivel fazer o insert no banco");
         return facadeResponse;
     }
 
@@ -69,29 +74,53 @@ public class Facade extends FacadeAbstract {
             return facadeResponse;
         }
 
-        Boolean result = dao.delete(entity);
+        facadeResponse = runRules(facadeRequest, facadeResponse);
 
-        if(result) {
-            facadeResponse = runRules(facadeRequest, facadeResponse);
+        if(facadeResponse.getMessage() != null){
             return facadeResponse;
         }
 
-        facadeResponse.setMessage("Delete não concluido");
+        Boolean result = dao.delete(entity);
+
+        if(!result){
+            facadeResponse.setMessage("Delete não concluido");
+            return facadeResponse;
+        }
+
         return facadeResponse;
     }
 
-    public void update(DomainEntity entity){
+    @Transactional
+    public FacadeResponse update(FacadeRequest facadeRequest){
+        DomainEntity entity = facadeRequest.getEntity();
+
         String nameEntity = entity.getClass().getName();
 
         IDAO dao = daos.get(nameEntity);
+        FacadeResponse facadeResponse = new FacadeResponse();
+        
         if(dao == null){
-            //Criar Exception DAO n existe
-            System.out.println(nameEntity + "não exite");
+            facadeResponse.setMessage(nameEntity + " não encontrado");
+            return facadeResponse;
         }
 
-        dao.uptade(entity);
+        facadeResponse = runRules(facadeRequest, facadeResponse);
+
+        if(facadeResponse.getMessage() != null){
+            return facadeResponse;
+        }
+
+        Boolean result = dao.uptade(entity);
+
+        if(!result){
+            facadeResponse.setMessage("Update não concluido");
+            return facadeResponse;
+        }
+
+        return facadeResponse;
     }
 
+    @Transactional
     public FacadeResponse query(FacadeRequest facadeRequest){
         DomainEntity entity = facadeRequest.getEntity();
 
@@ -101,7 +130,7 @@ public class Facade extends FacadeAbstract {
         FacadeResponse facadeResponse = new FacadeResponse();
 
         if(dao == null){
-            facadeResponse.setMessage(nameEntity + "não existe");
+            facadeResponse.setMessage(nameEntity + " não existe");
             return facadeResponse;
         }
         

@@ -1,6 +1,5 @@
 package com.mahas.ghazal.facade;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,14 +11,12 @@ import org.springframework.test.annotation.Commit;
 
 import jakarta.transaction.Transactional;
 
-import com.mahas.ghazal.domain.DomainEntity;
 import com.mahas.ghazal.domain.FacadeRequest;
 import com.mahas.ghazal.domain.FacadeResponse;
 import com.mahas.ghazal.domain.furniture.Furniture;
 import com.mahas.ghazal.domain.user.Favorite;
 import com.mahas.ghazal.domain.user.User;
 import com.mahas.ghazal.domain.furniture.Category;
-import com.mahas.ghazal.facade.Facade;
 
 @SpringBootTest
 @Transactional

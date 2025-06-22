@@ -2,7 +2,7 @@ import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { useEffect, useState } from "react";
 
 import styles from "./favorite.module.css";
-import { Furniture, ListFavorite, User } from "@/api/objects";
+import { Furniture, ListFavorite, Response, User } from "@/api/objects";
 import api from "@/api/route";
 import Cookies from "js-cookie";
 import { verifySession } from "@/services/session";
@@ -15,7 +15,8 @@ export default function Favorite({id, size}: {id: number, size: number}){
             const cookie = Cookies.get('session');
             if(cookie){
                 const user: User = await verifySession();
-                const data: ListFavorite = await api.get<ListFavorite>(`/favorite/user/${user.id}`);
+                const res: Response = await api.get<Response>(`/favorite/user/${user.id}`);
+                const data: ListFavorite = res.entities as ListFavorite;
                 const favorite = data[0];
 
                 for(const f of favorite.furnitures){

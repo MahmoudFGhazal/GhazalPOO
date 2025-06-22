@@ -1,11 +1,14 @@
 package com.mahas.ghazal.command.rules.user;
 
+import org.springframework.stereotype.Component;
+
 import com.mahas.ghazal.command.ICommand;
 import com.mahas.ghazal.domain.DomainEntity;
 import com.mahas.ghazal.domain.FacadeRequest;
 import com.mahas.ghazal.domain.FacadeResponse;
 import com.mahas.ghazal.domain.user.User;
 
+@Component
 public class Login implements ICommand {
 
     public FacadeResponse execute(FacadeRequest request, FacadeResponse response){
