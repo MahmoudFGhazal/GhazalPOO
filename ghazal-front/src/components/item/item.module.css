@@ -1,0 +1,68 @@
+
+.link{
+    text-decoration: none;
+    color: inherit;
+}
+
+.furnitureContent{
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.furnitureImage{
+    transition: all 0.6s;
+}
+
+.furnitureContent:hover .furnitureImage {
+    transform: scale(1.1);
+}
+
+.upDescription{
+    display: flex;
+    height: 32px;
+    justify-content: space-between;
+    padding-right: 30px;
+    align-items: center;
+    gap: 5px;
+}
+
+.nameContent{
+    position: relative;
+    width: 100%;
+    white-space: normal;
+}
+
+.priceContent{
+    height: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.price{
+    position: absolute;
+    font-size: 15px;
+    height: 16px;
+    width: fit-content;
+    color: #BB2024;
+}
+
+.showMore{
+    color: #808183;
+    background-color: #F9F9F9;
+}
+
+.visible {
+    opacity: 1;
+    transform: translateX(0px);
+    transition: transform 1s ;
+    border-bottom: 1px solid #808183;
+}
+
+.hidden {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: transform 0.6s ease-in, opacity 0.3s;
+}

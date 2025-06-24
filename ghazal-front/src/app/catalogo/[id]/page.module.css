@@ -1,0 +1,115 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: calc(100% - 100px);
+    width: 100%;
+    overflow-y: auto;
+}
+
+.mainContainer{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+}
+
+.objectsContainer{
+    display: flex;
+    align-items: flex-top;
+    justify-content: center;
+    gap: 0 50px;
+}
+
+.image{
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.mainDescription{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.upMainDescription{
+    display: flex;
+    align-items: flex-end;
+    gap: 0 10px;
+}
+
+.favorite{
+    width: 24px;
+    height: 24px;
+    margin-bottom: 5px;
+}
+
+.price{
+    color: #BB2024;
+    font-size: 18px;
+}
+
+.descriptionContainer{
+    padding: 0 5%;
+    padding-top: 20px;
+    background-color: #F3F3F3;
+    color: #777777;
+}
+
+.reviewContent{
+    margin: 25px 10px;
+    width: fit-content;
+    padding: 2px 5px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.reviewContent:hover{
+    transform: scale(1.05);
+    background-color: rgba(224, 224, 224, 0.5);
+}
+
+.descriptionContainer h1{
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.informationContainer{
+    padding-top: 10px;
+    padding: 0 2%;
+}
+
+.informationContainer h2{
+    font-size: 16px;
+}
+
+.categoryContainer{
+    display: flex;
+    height: 75px;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid rgba(0, 0, 46, 0.3);
+    margin-top: 2%;
+}
+
+.overlay{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 15;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.closeButton{
+    position: absolute;
+    right: 3%;
+    top: 3%;
+    margin: 3%;
+    cursor: pointer;
+}

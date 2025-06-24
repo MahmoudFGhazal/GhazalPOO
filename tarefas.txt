@@ -1,0 +1,27 @@
+Ajeitar as enitity
+    (strategy = GenerationType.AUTO)
+    not null/cascade?
+
+
+ghazal:
+carrinho
+criar tabela promotions?
+color simples
+sistemas de exceptions
+
+
+Revisar como as paginas interagem com a response
+criar tipos de response no response
+Arrumar o envio de informações
+Ver como transportar arquivos nulls no front
+Como deixar o site mais rapido
+fazer mais telas de pagamento
+arrumar os nomes dos container/content
+Sistema de rating total
+retirar imports inutil
+melhorar a reativadade
+organizar ordem dos styles
+deixar a image preto e branco se n tiver estoque
+colocar regras de negocio como algo vazio
+não deixar a pagina reiniciar depois que enviar o form de review
+colcoar reatividade nas estreals

@@ -1,0 +1,35 @@
+.container{
+    text-decoration: none;
+    color: inherit;
+    margin: 0 5%;
+    padding: 10px 2%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 15px;
+    border-radius: 10px;
+    transition: transform 2s, box-shadow 0.2s;
+}
+
+.container:hover{
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.description{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 30px;
+    width: 100%;
+}
+
+
+
+.model{
+    font-size: 20px;
+}
+
+.price{
+    color: #BB2024;
+    font-size: 18px;
+}
