@@ -24,8 +24,14 @@ public class UserControllerTest {
 
     @Test
     public void getUserTest(){
-        ResponseEntity<?> response = controller.Login("admin@gmail.com", "n");
+        //Assert
+        String email = "admin@gmail.com";
+        String password = "m";
 
+        //Act
+        ResponseEntity<?> response = controller.Login(email, password);
+
+        //Arrange
         assertNotNull(response, "resposta Não pode ser nula");
 
         Object body = response.getBody();
@@ -33,22 +39,23 @@ public class UserControllerTest {
         assertTrue(body instanceof FacadeResponse, "corpo deve ser uma lista");
 
         FacadeResponse facadeResponse = (FacadeResponse) body;
-
         System.out.println(facadeResponse.getMessage());
                 
     }
 
     @Test
     public void putUserTest(){
+        //Arrange
         User user = new User();
         user.setEmail("a@aa");
         user.setCpf("123.456.789-07");
         user.setName("Jose");
         user.setPassword("oi");
 
-
-        ResponseEntity<?> response = controller.putUser(user);
+        //Act
+        ResponseEntity<?> response = controller.postUser(user);
         
+        //Assert
         assertNotNull(response, "resposta Não pode ser nula");
 
         Object body = response.getBody();
@@ -56,7 +63,6 @@ public class UserControllerTest {
         assertTrue(body instanceof FacadeResponse, "corpo deve ser uma lista");
 
         FacadeResponse facadeResponse = (FacadeResponse) body;
-
         System.out.println(facadeResponse.getMessage());
     }
 

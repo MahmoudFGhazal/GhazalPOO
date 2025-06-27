@@ -60,6 +60,14 @@ export interface Favorite {
     furnitures: Furniture[],
 }
 
+export interface Review {
+    id: number,
+    rating: number,
+    comment: string,
+    user: User,
+    furniture: Furniture,
+}
+
 export type ListFurniture = Furniture[];
 
 export type ListFurnitureType = FurnitureType[];
@@ -74,5 +82,5 @@ export type ListUser = User[];
 
 export type ListFavorite = Favorite[];
 
-export type Datas = Furniture | User | Favorite | FurnitureType | Manufacturer | Category | Material | Color | ListCategory | ListColor | ListFavorite | ListFurniture | ListFurnitureType | ListMaterial | ListUser;
+export type Datas = Furniture | User | Favorite | FurnitureType | Manufacturer | Category | Material | Color | Review | ListCategory | ListColor | ListFavorite | ListFurniture | ListFurnitureType | ListMaterial | ListUser;
 

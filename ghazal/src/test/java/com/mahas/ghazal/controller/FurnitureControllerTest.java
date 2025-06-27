@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
+import com.mahas.ghazal.domain.FacadeResponse;
 import com.mahas.ghazal.domain.furniture.Furniture;
 
 import jakarta.transaction.Transactional;
@@ -23,19 +24,27 @@ public class FurnitureControllerTest {
 
     @Test
     public void testGetAll(){
+        //Arrange
+
+        //Act        
         ResponseEntity<?> response = controller.getAll();
 
+        //Assert
         assertNotNull(response, "resposta Não pode ser nula");
 
         Object body = response.getBody();
         assertNotNull(body, "corpo Não pode ser nula");
-        assertTrue(body instanceof List, "corpo deve ser uma lista");
-    
-        List<?> list = (List<?>) body;
-        if(!list.isEmpty()){
-            assertTrue(list.get(0) instanceof Furniture, "Item tem que ser um furniture");
-            for(int i = 0; i < list.size(); i++){
-                System.out.println(list.get(i).getClass());
+
+        assertTrue(body instanceof FacadeResponse, "corpo precisa ser uma resposta");
+        FacadeResponse facadeResponse = (FacadeResponse) body;
+
+        assertTrue(facadeResponse.getEntities() instanceof List, "corpo deve ser uma lista");
+        List<?> list = (List<?>) facadeResponse.getEntities();
+
+        if(!list.isEmpty()){       
+            for(Object item : list){
+                assertTrue(item instanceof Furniture, "Todos os itens devem ser instâncias de Furniture");
+                System.out.println(item.getClass());
             }
         }
     }

@@ -1,5 +1,8 @@
 package com.mahas.ghazal.facade;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,16 +32,25 @@ public class FacadeTest {
 
     @Test
     public void queryTest(){
+        //Arrange
         Furniture furniture = new Furniture();
         Category category = new Category();
         category.setId(3);
         Set<Category> categories = new HashSet();
         categories.add(category);
         furniture.setCategories(categories);
+
         FacadeRequest request = new FacadeRequest();
         request.setEntity(furniture);
 
+        //Act
         FacadeResponse result = facade.query(request);
+
+        //Assert
+        assertNotNull(result, "O resultado da consulta não pode ser nulo");
+        assertNotNull(result.getEntities(), "A lista de entidades não pode ser nula");
+        assertFalse(result.getEntities().isEmpty(), "A lista de entidades não pode estar vazia");
+
         List<Furniture> furnitures = (List<Furniture>) (List<?>) result.getEntities();
 
         System.out.println("Moveis");
@@ -49,6 +61,7 @@ public class FacadeTest {
 
     @Test
     public void deleteTest(){
+        //Arrange
         User user = new User();
         user.setId(1);
 
@@ -62,9 +75,10 @@ public class FacadeTest {
         favorite.setUser(user);
         favorite.setFurnitures(furnitures);
 
+        //Act
         FacadeRequest request = new FacadeRequest();
-        request.setEntity(favorite);
 
-        FacadeResponse response = facade.delete(request);
+        //Assert
+        request.setEntity(favorite);
     }
 }

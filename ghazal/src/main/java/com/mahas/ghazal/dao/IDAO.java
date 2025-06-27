@@ -15,7 +15,7 @@ public interface IDAO {
        return false;
     }
 
-    default public Boolean uptade(DomainEntity entity){
+    default public Boolean update(DomainEntity entity){
         return false;
     }
 

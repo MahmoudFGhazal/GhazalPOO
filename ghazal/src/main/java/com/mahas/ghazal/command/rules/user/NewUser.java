@@ -61,7 +61,6 @@ public class NewUser implements ICommand {
 
         if (variable.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")) {
             user.setCpf(variable);
-
         } else {
             user.setEmail(variable);
         }

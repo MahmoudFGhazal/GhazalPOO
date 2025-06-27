@@ -1,20 +1,42 @@
 'use client'
-import { Furniture, ListFurniture, Response } from "@/api/objects";
-import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import { Furniture, ListFurniture, Response, User } from "@/api/objects";
+import { IoMdClose } from "react-icons/io";
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
 import api from "@/api/route";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Favorite from "@/components/favorite";
+import Review from "@/components/review";
+import { verifySession } from "@/services/session";
+import Cookies from 'js-cookie';
 
 export default function Movel(){
     const [furniture, setFurniture] = useState<Furniture>();
+    const [showReview, setShowReview] = useState<Boolean>(false);
+    const [session, setSession] = useState<Boolean>(false);
 
     const params = useParams();
     const id = params.id?.toString();
 
     useEffect(() => {
+        async function getSession(){
+            const cookie = Cookies.get('session');
+
+            if(cookie){
+                const user: User = await verifySession();
+                if(user){
+                    setSession(true);
+                }else{
+                    setSession(false)
+                }
+            }else{
+                setSession(false);
+            }
+        }
+
+        getSession();
+
         async function getFurniture() {
             const res: Response = await api.get<Response>(`/furniture/${id}`);
             const data: ListFurniture = res.entities as ListFurniture; 
@@ -39,13 +61,20 @@ export default function Movel(){
                         height={300}
                     />
                     <div className={styles.mainDescription}>
-                        <div className={styles.upMainDescription}>
-                            <h1>{furniture?.model}</h1>
-                            <div className={styles.favorite} >
-                                <Favorite size={24} id={furniture.id}/>
+                        <div>
+                            <div className={styles.upMainDescription}>
+                                <h1>{furniture?.model}</h1>
+                                <div className={styles.favorite} >
+                                    <Favorite size={24} id={furniture.id}/>
+                                </div>
                             </div>
+                            <p className={styles.price}>R${furniture.price}</p>
                         </div>
-                        <p className={styles.price}>R${furniture.price}</p>
+                        {session && (
+                            <div className={styles.reviewContent} onClick={() => setShowReview(true)}>
+                                <p>Avaliar</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -66,6 +95,14 @@ export default function Movel(){
                     ))}</p>
                 </div>
             </div>
+
+            {showReview && (
+                <div className={styles.overlay}>
+                    <IoMdClose className={styles.closeButton} size={50} onClick={() => setShowReview(false)}/>
+                    <Review furniture={furniture} />
+                </div>    
+            )}
+
         </div>
     );
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mahas.ghazal.domain.FacadeRequest;
@@ -18,8 +19,6 @@ import com.mahas.ghazal.domain.furniture.Furniture;
 import com.mahas.ghazal.domain.user.Favorite;
 import com.mahas.ghazal.domain.user.User;
 import com.mahas.ghazal.facade.Facade;
-import org.springframework.web.bind.annotation.PutMapping;
-
 
 @Controller
 @CrossOrigin(origins = "http://localhost:3000")
@@ -68,7 +67,7 @@ public class FavoriteController {
         return ResponseEntity.ok(facadeResponse);
     }
 
-    @PutMapping("/{usr_id}/{fur_id}")
+    @PostMapping("/{usr_id}/{fur_id}")
     public ResponseEntity putFavorite(@PathVariable Integer usr_id, @PathVariable Integer fur_id) {        
         User user = new User();
         user.setId(usr_id);

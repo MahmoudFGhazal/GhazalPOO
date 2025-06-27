@@ -46,6 +46,7 @@ export default function Header(){
     async function handleExit(){
         deleteSession();
         window.dispatchEvent(new Event('session-changed'));
+        window.location.reload();
     }
 
     return(

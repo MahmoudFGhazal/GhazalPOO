@@ -51,15 +51,6 @@
     text-decoration: none;
 }
 
-.submitButton{
-    background-color: #3078FF;
-    color: #F9F9F9;
-}
-
-.submitButton:hover{
-    background-color: #449EFF;
-}
-
 .signIn{
     background-color: #bcbec0;
     color: #000000;

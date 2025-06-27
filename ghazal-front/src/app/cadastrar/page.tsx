@@ -5,6 +5,7 @@ import { FormEvent, useState } from "react";
 import api from "@/api/route";
 import { Response, User } from "@/api/objects";
 import { useRouter } from "next/navigation";
+import Button from "@/components/submitButton";
 
 export default function Cadastrar(){
     const router = useRouter();
@@ -31,7 +32,7 @@ export default function Cadastrar(){
                 cpf: cpf,
             }
 
-            const res: Response = await api.put<Response>(`/user`, user);
+            const res: Response = await api.post<Response>(`/user`, user);
             
             if(res.message != null){
                 alert(res.message);
@@ -39,8 +40,6 @@ export default function Cadastrar(){
                 alert("Cadastrado com sucesso");
                 router.push('/login');
             }
-
-            
         }
 
         SignIn();
@@ -106,7 +105,7 @@ export default function Cadastrar(){
                         placeholder="CPF"
                     />
                 </div>
-                <button type="submit" className={styles.button}>Cadastrar</button>
+                <Button text={"Cadastrar"} />
             </form>
         </div>
     );

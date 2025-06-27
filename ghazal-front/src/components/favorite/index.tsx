@@ -44,7 +44,7 @@ export default function Favorite({id, size}: {id: number, size: number}){
         const cookie = Cookies.get('session');
         if(cookie){
             const user: User = await verifySession();
-            await api.put(`/favorite/${user.id}/${id}`);
+            await api.post(`/favorite/${user.id}/${id}`);
         }
     }
 
@@ -61,6 +61,10 @@ export default function Favorite({id, size}: {id: number, size: number}){
         <div className={styles.favoriteIconContent}
             onMouseEnter={() => setFavoriteIcon(!favoriteIcon)}
             onMouseLeave={() => setFavoriteIcon(!favoriteIcon)}
+            onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            }}
         >
             <MdFavorite 
                 className={`${styles.favoriteIcon} ${favoriteIcon ? styles.favoriteVisible : styles.favoriteHidden}`}

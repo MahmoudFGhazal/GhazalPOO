@@ -27,6 +27,7 @@ public class FavoriteDAOTest {
 
     @Test
     public void delete(){
+        //Arrange
         User user = new User();
         user.setId(1);
 
@@ -40,9 +41,10 @@ public class FavoriteDAOTest {
         favorite.setUser(user);
         favorite.setFurnitures(furnitures);
 
-
+        //Act
         Boolean result = favoriteDAO.delete(favorite);
     
+        //Assert
         assertTrue(result);
     }
 }

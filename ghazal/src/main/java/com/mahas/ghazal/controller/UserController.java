@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mahas.ghazal.command.ICommand;
@@ -15,7 +16,6 @@ import com.mahas.ghazal.domain.FacadeRequest;
 import com.mahas.ghazal.domain.FacadeResponse;
 import com.mahas.ghazal.domain.user.User;
 import com.mahas.ghazal.facade.Facade;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -50,8 +50,8 @@ public class UserController {
         return ResponseEntity.ok(facadeResponse);
     }
 
-    @PutMapping
-    public ResponseEntity putUser(@RequestBody User user) {
+    @PostMapping
+    public ResponseEntity postUser(@RequestBody User user) {
         FacadeRequest facadeRequest = new FacadeRequest();
         if(user.getCpf().trim().isBlank()){
             user.setCpf(null);

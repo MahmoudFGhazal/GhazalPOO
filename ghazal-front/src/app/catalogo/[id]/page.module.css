@@ -58,6 +58,20 @@
     color: #777777;
 }
 
+.reviewContent{
+    margin: 25px 10px;
+    width: fit-content;
+    padding: 2px 5px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.reviewContent:hover{
+    transform: scale(1.05);
+    background-color: rgba(224, 224, 224, 0.5);
+}
+
 .descriptionContainer h1{
     font-size: 20px;
     margin-bottom: 10px;
@@ -79,4 +93,23 @@
     align-items: center;
     border-top: 1px solid rgba(0, 0, 46, 0.3);
     margin-top: 2%;
+}
+
+.overlay{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 15;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.closeButton{
+    position: absolute;
+    right: 3%;
+    top: 3%;
+    margin: 3%;
+    cursor: pointer;
 }

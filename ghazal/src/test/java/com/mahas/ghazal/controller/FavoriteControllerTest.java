@@ -1,5 +1,6 @@
 package com.mahas.ghazal.controller;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -28,9 +29,14 @@ public class FavoriteControllerTest {
     private FavoriteController controller;
 
     @Test
-    public void testByUser(){
-        ResponseEntity<?> response = controller.getFavorites(1);
+    public void testgetFavorites(){
+        //Arrange
+        int userId = 1;
 
+        //Act
+        ResponseEntity<?> response = controller.getFavorites(userId);
+
+        //Assert
         assertNotNull(response, "resposta Não pode ser nula");
 
         Object body = response.getBody();
@@ -38,26 +44,31 @@ public class FavoriteControllerTest {
         assertTrue(body instanceof FacadeResponse);
 
         FacadeResponse facadeResponse = (FacadeResponse) body;
-
         assertNotNull(facadeResponse.getEntities());
 
         List<DomainEntity> entities = facadeResponse.getEntities();
+        assertFalse(entities.isEmpty(), "A lista de entidades não pode estar vazia");
         assertTrue(entities.get(0) instanceof Favorite);
+
         Favorite favorite = (Favorite) entities.get(0);
+        assertNotNull(favorite.getFurnitures(), "A lista de móveis não pode ser nula");
 
         for(Furniture f : favorite.getFurnitures()){
+            assertNotNull(f.getModel(), "O modelo do móvel não pode ser nulo");
             System.out.println(f.getModel());
         }
-        System.out.println(favorite.getFurnitures());
-
-
-        
     }
 
     @Test   
     public void testPut(){
-        ResponseEntity<?> response = controller.putFavorite(1,10);
+        //Arrange
+        int userId = 1;
+        int furnitureId = 3;
 
+        //Act
+        ResponseEntity<?> response = controller.putFavorite(userId,furnitureId);
+
+        //Assert
         assertNotNull(response, "resposta Não pode ser nula");
 
         Object body = response.getBody();
@@ -66,13 +77,18 @@ public class FavoriteControllerTest {
 
         FacadeResponse facadeResponse = (FacadeResponse) body;
         assertNull(facadeResponse.getMessage());
-        
     }
 
     @Test   
     public void testDelete(){
-        ResponseEntity<?> response = controller.deleteFavorite(1,3);
+        //Arrange
+        int userId = 1;
+        int furnitureId = 3;
 
+        //Act
+        ResponseEntity<?> response = controller.deleteFavorite(userId,furnitureId);
+
+        //Asserts
         assertNotNull(response, "resposta Não pode ser nula");
 
         Object body = response.getBody();
@@ -80,8 +96,7 @@ public class FavoriteControllerTest {
         assertTrue(body instanceof FacadeResponse);
 
         FacadeResponse facadeResponse = (FacadeResponse) body;
-        assertNull(facadeResponse.getMessage());
-        
+        assertNull(facadeResponse.getMessage());     
     }
 
 }

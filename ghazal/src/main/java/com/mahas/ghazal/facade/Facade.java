@@ -106,12 +106,14 @@ public class Facade extends FacadeAbstract {
 
         facadeResponse = runRules(facadeRequest, facadeResponse);
 
-        if(facadeResponse.getMessage() != null){
-            return facadeResponse;
-        }
-
-        Boolean result = dao.uptade(entity);
-
+        List<DomainEntity> existing = dao.query(entity);
+        Boolean result;
+        if(existing == null || existing.isEmpty()){
+            result = dao.save(entity);
+        }else{
+            result = dao.update(entity);
+        } 
+        
         if(!result){
             facadeResponse.setMessage("Update não concluido");
             return facadeResponse;
@@ -142,6 +144,5 @@ public class Facade extends FacadeAbstract {
         
         return facadeResponse;
     }
-
 
 }

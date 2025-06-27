@@ -8,6 +8,7 @@ import { User } from "@/api/objects";
 import Cookies from "js-cookie";
 import { verifySession } from "@/services/session";
 import Link from "next/link";
+import Button from "@/components/submitButton";
 
 export default function Login(){
     const router = useRouter();
@@ -71,7 +72,7 @@ export default function Login(){
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button type="submit" className={`${styles.button} ${styles.submitButton}`}>Enviar</button>
+                <Button text={"Enviar"} />
             </form>
             <Link 
                 href={"/cadastrar"}

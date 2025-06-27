@@ -1,5 +1,6 @@
 package com.mahas.ghazal.domain.user;
 
+import com.mahas.ghazal.domain.DomainEntity;
 import com.mahas.ghazal.domain.furniture.Furniture;
 
 import jakarta.persistence.Column;
@@ -20,7 +21,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Review {
+public class Review extends DomainEntity{
 
     @Id
     @GeneratedValue
@@ -28,7 +29,7 @@ public class Review {
     private Integer id;
 
     @Column(name = "rev_rating")
-    private double rating;
+    private Double rating;
 
     @Column(name = "rev_comment")
     private String comment;
