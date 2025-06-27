@@ -68,8 +68,18 @@ CREATE TABLE furnitures (
 );
 
 CREATE TABLE reviews (
+<<<<<<< HEAD
     rev_id INT AUTO_INCREMENT PRIMARY KEY,
     rev_rating DECIMAL(4,2),
+=======
+<<<<<<< HEAD
+    rev_id INT PRIMARY KEY,
+    rev_ranting DECIMAL(4,2),
+=======
+    rev_id INT AUTO_INCREMENT PRIMARY KEY,
+    rev_rating DECIMAL(4,2),
+>>>>>>> 1ac0a9c (Finalizando)
+>>>>>>> 7e7e61d (Teste)
     rev_comment VARCHAR(255),
     rev_usr_id INT NOT NULL,
     rev_fur_id INT NOT NULL,

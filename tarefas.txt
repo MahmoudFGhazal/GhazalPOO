@@ -20,8 +20,19 @@ arrumar os nomes dos container/content
 Sistema de rating total
 retirar imports inutil
 melhorar a reativadade
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+organizar ordem dos styles
+=======
+>>>>>>> 7e7e61d (Teste)
 organizar ordem dos styles
 deixar a image preto e branco se n tiver estoque
 colocar regras de negocio como algo vazio
 não deixar a pagina reiniciar depois que enviar o form de review
+<<<<<<< HEAD
 colcoar reatividade nas estreals
+=======
+colcoar reatividade nas estreals
+>>>>>>> 1ac0a9c (Finalizando)
+>>>>>>> 7e7e61d (Teste)
