@@ -17,4 +17,5 @@ import lombok.Setter;
 public class FacadeRequest {
     private DomainEntity entity;
     private ICommand[] commands;
+    private TypeRequest typeRequest;
 }

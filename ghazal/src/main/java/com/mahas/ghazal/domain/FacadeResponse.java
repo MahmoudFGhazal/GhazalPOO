@@ -17,4 +17,5 @@ import lombok.Setter;
 public class FacadeResponse {
     private List<DomainEntity> entities;
     private String message;
+    private TypeResponse TypeResponse;
 }

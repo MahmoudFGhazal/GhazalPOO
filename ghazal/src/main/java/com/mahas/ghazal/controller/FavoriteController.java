@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mahas.ghazal.domain.FacadeRequest;
 import com.mahas.ghazal.domain.FacadeResponse;
+import com.mahas.ghazal.domain.TypeRequest;
 import com.mahas.ghazal.domain.furniture.Furniture;
 import com.mahas.ghazal.domain.user.Favorite;
 import com.mahas.ghazal.domain.user.User;
@@ -38,8 +39,9 @@ public class FavoriteController {
 
         FacadeRequest facadeRequest = new FacadeRequest();
         facadeRequest.setEntity(favorite);
+        facadeRequest.setTypeRequest(TypeRequest.GET);
 
-        FacadeResponse facadeResponse = facade.query(facadeRequest);
+        FacadeResponse facadeResponse = facade.FacadeController(facadeRequest);
         
         return ResponseEntity.ok(facadeResponse);
     }
@@ -61,8 +63,9 @@ public class FavoriteController {
 
         FacadeRequest facadeRequest = new FacadeRequest();
         facadeRequest.setEntity(favorite);
+        facadeRequest.setTypeRequest(TypeRequest.DELETE);
 
-        FacadeResponse facadeResponse = facade.delete(facadeRequest);
+        FacadeResponse facadeResponse = facade.FacadeController(facadeRequest);
 
         return ResponseEntity.ok(facadeResponse);
     }
@@ -84,8 +87,9 @@ public class FavoriteController {
         
         FacadeRequest facadeRequest = new FacadeRequest();
         facadeRequest.setEntity(favorite);
+        facadeRequest.setTypeRequest(TypeRequest.POST);
 
-        FacadeResponse facadeResponse = facade.save(facadeRequest);
+        FacadeResponse facadeResponse = facade.FacadeController(facadeRequest);
 
         return ResponseEntity.ok(facadeResponse);
     }

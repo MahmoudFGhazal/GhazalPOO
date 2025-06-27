@@ -7,6 +7,8 @@ import com.mahas.ghazal.command.ICommand;
 import com.mahas.ghazal.domain.DomainEntity;
 import com.mahas.ghazal.domain.FacadeRequest;
 import com.mahas.ghazal.domain.FacadeResponse;
+import com.mahas.ghazal.domain.TypeRequest;
+import com.mahas.ghazal.domain.TypeResponse;
 import com.mahas.ghazal.domain.user.User;
 import com.mahas.ghazal.facade.Facade;
 
@@ -20,7 +22,7 @@ public class NewUser implements ICommand {
         DomainEntity requestEntity = request.getEntity();
 
         if(!(requestEntity instanceof User)){
-            response = error("Entidade não é um usuário para analiser o cadastro", response);
+            response = error("Entidade não é um usuário para analiser o cadastro", response, TypeResponse.SERVER_ERROR);
             return response;
         }
 
@@ -29,25 +31,25 @@ public class NewUser implements ICommand {
             String cpf = user.getCpf();
 
             if(!cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}") || cpf.length() != 14){
-                response = error("Formato de CPF invalido", response);
+                response = error("Formato de CPF invalido", response, TypeResponse.VARIABLE_ERROR);
                 return response;
             }
             
             FacadeResponse queryCpf = query(user.getCpf());
             if(!(queryCpf.getEntities().isEmpty())){
-                response = error("CPF já cadastrado", response);
+                response = error("CPF já cadastrado", response, TypeResponse.VARIABLE_ERROR);
                 return response;
             }
         }
 
         if(user.getEmail().length() > 255 || user.getName().length() > 255 || user.getPassword().length() > 255){
-            response = error("Tamanho de variavel maior que o suportado", response);
+            response = error("Tamanho de variavel maior que o suportado", response, TypeResponse.VARIABLE_ERROR);
             return response;
         }
 
         FacadeResponse queryEmail = query(user.getEmail());
         if(!(queryEmail.getEntities().isEmpty())){
-            response = error("Email já cadastrado", response);
+            response = error("Email já cadastrado", response, TypeResponse.VARIABLE_ERROR);
             return response;
         }
 
@@ -67,8 +69,9 @@ public class NewUser implements ICommand {
         
         FacadeRequest request = new FacadeRequest();
         request.setEntity(user);
+        request.setTypeRequest(TypeRequest.GET);
 
-        FacadeResponse response = facade.query(request);
+        FacadeResponse response = facade.FacadeController(request);
 
         return response;
     }

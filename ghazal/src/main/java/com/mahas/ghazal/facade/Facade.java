@@ -12,11 +12,33 @@ import com.mahas.ghazal.dao.IDAO;
 import com.mahas.ghazal.domain.DomainEntity;
 import com.mahas.ghazal.domain.FacadeRequest;
 import com.mahas.ghazal.domain.FacadeResponse;
+import com.mahas.ghazal.domain.TypeRequest;
+import com.mahas.ghazal.domain.TypeResponse;
 
 @Component
 public class Facade extends FacadeAbstract {
 
-    public FacadeResponse runRules(FacadeRequest request, FacadeResponse response){
+    public FacadeResponse FacadeController(FacadeRequest request){
+
+        FacadeResponse response = new FacadeResponse();
+
+        if(request.getTypeRequest() == TypeRequest.DELETE){
+            response = delete(request);
+        }else if(request.getTypeRequest() == TypeRequest.POST){
+            response = save(request);
+        }else if(request.getTypeRequest() == TypeRequest.PUT){
+            response = update(request);
+        }else if(request.getTypeRequest() == TypeRequest.GET){
+            response = query(request);
+        }else{
+            response.setMessage("Tipo de requisição invalida");
+            response.setTypeResponse(TypeResponse.BACK_ERROR);
+        }
+
+        return response;
+    }
+
+    private FacadeResponse runRules(FacadeRequest request, FacadeResponse response){
         ICommand[] commands = request.getCommands(); 
         if(commands == null || commands.length == 0) return response;
         
@@ -31,7 +53,7 @@ public class Facade extends FacadeAbstract {
     }
 
     @Transactional
-    public FacadeResponse save(FacadeRequest facadeRequest){
+    private FacadeResponse save(FacadeRequest facadeRequest){
         DomainEntity entity = facadeRequest.getEntity();
 
         String nameEntity = entity.getClass().getName();
@@ -61,7 +83,7 @@ public class Facade extends FacadeAbstract {
     }
 
     @Transactional
-    public FacadeResponse delete(FacadeRequest facadeRequest){
+    private FacadeResponse delete(FacadeRequest facadeRequest){
         DomainEntity entity = facadeRequest.getEntity();
 
         String nameEntity = entity.getClass().getName();
@@ -91,7 +113,7 @@ public class Facade extends FacadeAbstract {
     }
 
     @Transactional
-    public FacadeResponse update(FacadeRequest facadeRequest){
+    private FacadeResponse update(FacadeRequest facadeRequest){
         DomainEntity entity = facadeRequest.getEntity();
 
         String nameEntity = entity.getClass().getName();
@@ -123,7 +145,7 @@ public class Facade extends FacadeAbstract {
     }
 
     @Transactional
-    public FacadeResponse query(FacadeRequest facadeRequest){
+    private FacadeResponse query(FacadeRequest facadeRequest){
         DomainEntity entity = facadeRequest.getEntity();
 
         String nameEntity = entity.getClass().getName();

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mahas.ghazal.domain.FacadeRequest;
 import com.mahas.ghazal.domain.FacadeResponse;
+import com.mahas.ghazal.domain.TypeRequest;
 import com.mahas.ghazal.domain.user.Review;
 import com.mahas.ghazal.facade.Facade;
 
@@ -26,8 +27,9 @@ public class ReviewController {
 
         FacadeRequest facadeRequest = new FacadeRequest();
         facadeRequest.setEntity(review);
+        facadeRequest.setTypeRequest(TypeRequest.PUT);
 
-        FacadeResponse facadeResponse = facade.update(facadeRequest);
+        FacadeResponse facadeResponse = facade.FacadeController(facadeRequest);
 
         return ResponseEntity.ok(facadeResponse);
     }

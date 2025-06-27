@@ -61,7 +61,7 @@ public class UserDAO implements IDAO{
     @Override
     public List<DomainEntity> query(DomainEntity entity) {
         if(!(entity instanceof User)){
-            return List.of();
+            return new ArrayList<>();
         }
 
         User user = (User) entity;

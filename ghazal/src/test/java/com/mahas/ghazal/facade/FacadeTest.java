@@ -16,6 +16,7 @@ import jakarta.transaction.Transactional;
 
 import com.mahas.ghazal.domain.FacadeRequest;
 import com.mahas.ghazal.domain.FacadeResponse;
+import com.mahas.ghazal.domain.TypeRequest;
 import com.mahas.ghazal.domain.furniture.Furniture;
 import com.mahas.ghazal.domain.user.Favorite;
 import com.mahas.ghazal.domain.user.User;
@@ -42,9 +43,10 @@ public class FacadeTest {
 
         FacadeRequest request = new FacadeRequest();
         request.setEntity(furniture);
+        request.setTypeRequest(TypeRequest.GET);
 
         //Act
-        FacadeResponse result = facade.query(request);
+        FacadeResponse result = facade.FacadeController(request);
 
         //Assert
         assertNotNull(result, "O resultado da consulta não pode ser nulo");
@@ -75,10 +77,16 @@ public class FacadeTest {
         favorite.setUser(user);
         favorite.setFurnitures(furnitures);
 
-        //Act
         FacadeRequest request = new FacadeRequest();
+        request.setEntity(favorite);
+        request.setTypeRequest(TypeRequest.DELETE);
+
+        //Act
+        FacadeResponse result = facade.FacadeController(request);
 
         //Assert
-        request.setEntity(favorite);
+        assertNotNull(result, "O resultado da consulta não pode ser nulo");
+        assertNotNull(result.getEntities(), "A lista de entidades não pode ser nula");
+        assertFalse(result.getEntities().isEmpty(), "A lista de entidades não pode estar vazia");
     }
 }

@@ -6,6 +6,7 @@ import com.mahas.ghazal.command.ICommand;
 import com.mahas.ghazal.domain.DomainEntity;
 import com.mahas.ghazal.domain.FacadeRequest;
 import com.mahas.ghazal.domain.FacadeResponse;
+import com.mahas.ghazal.domain.TypeResponse;
 import com.mahas.ghazal.domain.user.User;
 
 @Component
@@ -23,16 +24,16 @@ public class Login implements ICommand {
 
                 if(requestUser.getEmail().equals(responseUser.getEmail())){
                     if(!requestUser.getPassword().equals(responseUser.getPassword())){
-                        response = error("Senha Incorreta", response);
+                        response = error("Senha Incorreta", response, TypeResponse.VARIABLE_ERROR);
                     }
                 }else{
-                    response = error("Erro na query", response);
+                    response = error("Email Incorreto", response, TypeResponse.SERVER_ERROR);
                 }
             }else{
-                response = error("Erro de Servidor", response);
+                response = error("Entidade não é um úsuario", response, TypeResponse.SERVER_ERROR);
             }
         }else{
-            response = error("Usuario não existente", response);
+            response = error("Usuario não existente", response, TypeResponse.VARIABLE_ERROR);
         }
 
         return response;

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mahas.ghazal.domain.FacadeRequest;
 import com.mahas.ghazal.domain.FacadeResponse;
+import com.mahas.ghazal.domain.TypeRequest;
 import com.mahas.ghazal.domain.furniture.Furniture;
 import com.mahas.ghazal.facade.Facade;
 
@@ -31,8 +32,9 @@ public class FurnitureController {
 
         FacadeRequest facadeRequest = new FacadeRequest();
         facadeRequest.setEntity(furniture);
+        facadeRequest.setTypeRequest(TypeRequest.GET);
 
-        FacadeResponse facadeResponse = facade.query(facadeRequest);
+        FacadeResponse facadeResponse = facade.FacadeController(facadeRequest);
 
         return ResponseEntity.ok(facadeResponse);
     }
@@ -43,8 +45,9 @@ public class FurnitureController {
 
         FacadeRequest facadeRequest = new FacadeRequest();
         facadeRequest.setEntity(furniture);
+        facadeRequest.setTypeRequest(TypeRequest.GET);
 
-        FacadeResponse facadeResponse = facade.query(facadeRequest);
+        FacadeResponse facadeResponse = facade.FacadeController(facadeRequest);
 
         return ResponseEntity.ok(facadeResponse);
     }

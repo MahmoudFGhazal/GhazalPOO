@@ -14,8 +14,10 @@ import com.mahas.ghazal.command.rules.user.Login;
 import com.mahas.ghazal.command.rules.user.NewUser;
 import com.mahas.ghazal.domain.FacadeRequest;
 import com.mahas.ghazal.domain.FacadeResponse;
+import com.mahas.ghazal.domain.TypeRequest;
 import com.mahas.ghazal.domain.user.User;
 import com.mahas.ghazal.facade.Facade;
+
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -44,8 +46,9 @@ public class UserController {
 
         ICommand[] commands = new ICommand[]{login};
         facadeRequest.setCommands(commands);
+        facadeRequest.setTypeRequest(TypeRequest.GET);
 
-        FacadeResponse facadeResponse = facade.query(facadeRequest);
+        FacadeResponse facadeResponse = facade.FacadeController(facadeRequest);
 
         return ResponseEntity.ok(facadeResponse);
     }
@@ -61,8 +64,9 @@ public class UserController {
 
         ICommand[] commands = new ICommand[]{newUser};
         facadeRequest.setCommands(commands);
+        facadeRequest.setTypeRequest(TypeRequest.POST);
 
-        FacadeResponse facadeResponse = facade.save(facadeRequest);
+        FacadeResponse facadeResponse = facade.FacadeController(facadeRequest);
 
         return ResponseEntity.ok(facadeResponse);
     }
