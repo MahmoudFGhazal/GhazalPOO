@@ -17,12 +17,14 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 
 @Component
 public class FavoriteDAO implements IDAO{
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional
     @Override
     public Boolean save(DomainEntity entity){
         if(!(entity instanceof Favorite)){
@@ -50,6 +52,7 @@ public class FavoriteDAO implements IDAO{
         return false;
     }
 
+    @Transactional
     @Override
     public Boolean delete(DomainEntity entity){
         if(!(entity instanceof Favorite)){

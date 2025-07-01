@@ -1,6 +1,7 @@
-export interface Response {
+export interface apiResponse {
     entities: Datas,
     message: string,
+    typeResponse: string,
 }
 
 export interface Furniture {
@@ -61,7 +62,7 @@ export interface Favorite {
 }
 
 export interface Review {
-    id: number,
+    id?: number,
     rating: number,
     comment: string,
     user: User,

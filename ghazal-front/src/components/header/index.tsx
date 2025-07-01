@@ -7,7 +7,6 @@ import Logo from "@/../public/assets/Logo-Simples.jpg";
 import { useEffect, useState } from "react";
 import { deleteSession, verifySession } from "@/services/session";
 import { User } from "@/api/objects";
-import Cookies from 'js-cookie';
 import { usePathname } from "next/navigation";
 
 export default function Header(){
@@ -18,16 +17,10 @@ export default function Header(){
 
     useEffect(() => {
         async function getSession(){
-            const cookie = Cookies.get('session');
-
-            if(cookie){
-                const user: User = await verifySession();
-                if(user && user.name){
-                    const formattedName = user.name.charAt(0).toUpperCase() + user.name.slice(1).toLowerCase();
-                    setSession(formattedName);
-                }else{
-                    setSession(null);
-                }
+            const user: User = await verifySession();
+            if(user && user.name){
+                const formattedName = user.name.charAt(0).toUpperCase() + user.name.slice(1).toLowerCase();
+                setSession(formattedName);
             }else{
                 setSession(null);
             }

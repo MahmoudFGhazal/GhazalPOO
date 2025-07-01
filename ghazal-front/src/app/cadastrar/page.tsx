@@ -3,7 +3,7 @@ import handleSign from "@/services/handleSign";
 import styles from "./page.module.css";
 import { FormEvent, useState } from "react";
 import api from "@/api/route";
-import { Response, User } from "@/api/objects";
+import { apiResponse, User } from "@/api/objects";
 import { useRouter } from "next/navigation";
 import Button from "@/components/submitButton";
 
@@ -32,9 +32,9 @@ export default function Cadastrar(){
                 cpf: cpf,
             }
 
-            const res: Response = await api.post<Response>(`/user`, user);
+            const res: apiResponse = await api.post<apiResponse>(`/user`, user);
             
-            if(res.message != null){
+            if(res && res.typeResponse !== "SUCCESS"){
                 alert(res.message);
             }else{
                 alert("Cadastrado com sucesso");

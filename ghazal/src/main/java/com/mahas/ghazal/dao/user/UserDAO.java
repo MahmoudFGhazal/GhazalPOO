@@ -15,12 +15,14 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 
 @Component
 public class UserDAO implements IDAO{
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional
     @Override
     public Boolean save(DomainEntity entity){
         if(!(entity instanceof User)){

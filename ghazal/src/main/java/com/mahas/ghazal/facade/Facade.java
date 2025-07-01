@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.mahas.ghazal.command.Command;
 import com.mahas.ghazal.command.ICommand;
@@ -46,13 +45,15 @@ public class Facade extends FacadeAbstract {
             Command command = new Command();
             command.setCommand(c);
             response = command.execute(request, response);
-            if(!Optional.ofNullable(response.getMessage()).orElse("").isBlank()) break;
+            if(!Optional.ofNullable(response.getMessage()).orElse("").isBlank()) {
+                response.setTypeResponse(TypeResponse.VARIABLE_ERROR);
+                break;
+            }
         }
 
         return response;
     }
 
-    @Transactional
     private FacadeResponse save(FacadeRequest facadeRequest){
         DomainEntity entity = facadeRequest.getEntity();
 
@@ -62,6 +63,7 @@ public class Facade extends FacadeAbstract {
         FacadeResponse facadeResponse = new FacadeResponse();
 
         if(dao == null){
+            facadeResponse.setTypeResponse(TypeResponse.BACK_ERROR);
             facadeResponse.setMessage(nameEntity + "não existe");
             return facadeResponse;
         }
@@ -75,14 +77,15 @@ public class Facade extends FacadeAbstract {
         Boolean result = dao.save(entity);
 
         if(!result){
+            facadeResponse.setTypeResponse(TypeResponse.SERVER_ERROR);
             facadeResponse.setMessage("Não foi possivel fazer o insert no banco");
             return facadeResponse;
         }
 
+        facadeResponse.setTypeResponse(TypeResponse.SUCCESS);
         return facadeResponse;
     }
 
-    @Transactional
     private FacadeResponse delete(FacadeRequest facadeRequest){
         DomainEntity entity = facadeRequest.getEntity();
 
@@ -92,6 +95,7 @@ public class Facade extends FacadeAbstract {
         FacadeResponse facadeResponse = new FacadeResponse();
 
         if(dao == null){
+            facadeResponse.setTypeResponse(TypeResponse.BACK_ERROR);
             facadeResponse.setMessage(nameEntity + "não existe");
             return facadeResponse;
         }
@@ -105,14 +109,15 @@ public class Facade extends FacadeAbstract {
         Boolean result = dao.delete(entity);
 
         if(!result){
+            facadeResponse.setTypeResponse(TypeResponse.SERVER_ERROR);
             facadeResponse.setMessage("Delete não concluido");
             return facadeResponse;
         }
 
+        facadeResponse.setTypeResponse(TypeResponse.SUCCESS);
         return facadeResponse;
     }
 
-    @Transactional
     private FacadeResponse update(FacadeRequest facadeRequest){
         DomainEntity entity = facadeRequest.getEntity();
 
@@ -122,6 +127,7 @@ public class Facade extends FacadeAbstract {
         FacadeResponse facadeResponse = new FacadeResponse();
         
         if(dao == null){
+            facadeResponse.setTypeResponse(TypeResponse.BACK_ERROR);
             facadeResponse.setMessage(nameEntity + " não encontrado");
             return facadeResponse;
         }
@@ -137,14 +143,15 @@ public class Facade extends FacadeAbstract {
         } 
         
         if(!result){
+            facadeResponse.setTypeResponse(TypeResponse.SERVER_ERROR);
             facadeResponse.setMessage("Update não concluido");
             return facadeResponse;
         }
 
+        facadeResponse.setTypeResponse(TypeResponse.SUCCESS);
         return facadeResponse;
     }
 
-    @Transactional
     private FacadeResponse query(FacadeRequest facadeRequest){
         DomainEntity entity = facadeRequest.getEntity();
 
@@ -154,6 +161,7 @@ public class Facade extends FacadeAbstract {
         FacadeResponse facadeResponse = new FacadeResponse();
 
         if(dao == null){
+            facadeResponse.setTypeResponse(TypeResponse.BACK_ERROR);
             facadeResponse.setMessage(nameEntity + " não existe");
             return facadeResponse;
         }
@@ -164,6 +172,7 @@ public class Facade extends FacadeAbstract {
 
         facadeResponse = runRules(facadeRequest, facadeResponse);
         
+        facadeResponse.setTypeResponse(TypeResponse.SUCCESS);
         return facadeResponse;
     }
 

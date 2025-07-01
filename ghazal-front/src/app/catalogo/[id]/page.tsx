@@ -1,5 +1,5 @@
 'use client'
-import { Furniture, ListFurniture, Response, User } from "@/api/objects";
+import { Furniture, ListFurniture, apiResponse, User } from "@/api/objects";
 import { IoMdClose } from "react-icons/io";
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
@@ -9,7 +9,6 @@ import Image from "next/image";
 import Favorite from "@/components/favorite";
 import Review from "@/components/review";
 import { verifySession } from "@/services/session";
-import Cookies from 'js-cookie';
 
 export default function Movel(){
     const [furniture, setFurniture] = useState<Furniture>();
@@ -21,45 +20,55 @@ export default function Movel(){
 
     useEffect(() => {
         async function getSession(){
-            const cookie = Cookies.get('session');
+            const user: User = await verifySession();
 
-            if(cookie){
-                const user: User = await verifySession();
-                if(user){
-                    setSession(true);
-                }else{
-                    setSession(false)
-                }
+            if(user){
+                setSession(true);
             }else{
-                setSession(false);
+                setSession(false)
             }
         }
 
         getSession();
 
         async function getFurniture() {
-            const res: Response = await api.get<Response>(`/furniture/${id}`);
-            const data: ListFurniture = res.entities as ListFurniture; 
+            const res: apiResponse = await api.get<apiResponse>(`/furniture/${id}`);
             
-            setFurniture(data[0]);
+            if(res && res.typeResponse !== "SUCCESS"){
+                alert(res.message);    
+            }else{
+                const data: ListFurniture = res.entities as ListFurniture; 
+                
+                setFurniture(data[0]);
+            }
         }
 
         getFurniture();
     }, []);
 
     if (!furniture) return <p>Carregando móvel... </p>;
-
+    console.log(furniture.image);
     return(
         <div className={styles.container}>
             <div className={styles.mainContainer}>
                 <div className={styles.objectsContainer}>
-                    <Image
-                        className={styles.image}
-                        src="https://static.wikia.nocookie.net/animeverso/images/0/04/ShrekRender.png/revision/latest/scale-to-width-down/340?cb=20231106231500&path-prefix=pt-br"
-                        alt="Imagem do Movel"
-                        width={450}
-                        height={300}
-                    />
+                    {furniture.image ?
+                        <Image
+                            className={styles.image}
+                            src={furniture.image}
+                            alt="Imagem do Movel"
+                            width={450}
+                            height={300}
+                        />
+                    :
+                        <Image
+                            className={styles.image}
+                            src="/assets/ShrekRender.png"
+                            alt="Imagem do Movel"
+                            width={450}
+                            height={300}
+                        />
+                    }
                     <div className={styles.mainDescription}>
                         <div>
                             <div className={styles.upMainDescription}>

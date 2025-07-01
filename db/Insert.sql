@@ -40,8 +40,8 @@ INSERT INTO furnitures (
   fur_characteristics, fur_image, fur_price,
   fur_stock, fur_fut_id, fur_col_id, fur_man_id
 ) VALUES
-('Cadeira Viena', 0.90, 0.45, 0.50, 7.500, 'Assento estofado, estrutura em madeira', NULL, 249.90, 20, 1, 1, 1),
-('Cadeira Roma', 0.95, 0.48, 0.52, 8.200, 'Encosto alto, pés metálicos', NULL, 279.90, 15, 1, 2, 2),
+('Cadeira Viena', 0.90, 0.45, 0.50, 7.500, 'Assento estofado, estrutura em madeira', "https://thonart.com.br/public/files/item-27355000-cadeira-viena-assento-em-palha-v1-a.jpg", 249.90, 20, 1, 1, 1),
+('Cadeira Roma', 0.95, 0.48, 0.52, 8.200, 'Encosto alto, pés metálicos', "https://images.tcdn.com.br/img/img_prod/793921/cadeira_roma_tecido_linho_bege_base_aco_preto_ooca_moveis_365_1_ad4567da0632ca71b7ef37eece94b8a4.jpg" , 279.90, 15, 1, 2, 2),
 ('Sofá Milano 3 lugares', 0.85, 2.10, 0.90, 45.000, 'Revestimento em tecido cinza, 3 assentos', NULL, 1999.00, 5, 2, 4, 1),
 ('Sofá Napoli 2 lugares', 0.80, 1.60, 0.85, 35.000, 'Tecido marrom, reclinável', NULL, 1499.00, 8, 2, 3, 3),
 ('Mesa Verona 6 cadeiras', 0.75, 1.80, 0.90, 40.000, 'Tampo MDF, pés de madeira', NULL, 2499.00, 3, 3, 5, 2),

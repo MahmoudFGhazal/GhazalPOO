@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 import api from "@/api/route";
 import { useEffect, useState } from "react";
 
-import { ListFurniture, Response } from "@/api/objects";
+import { ListFurniture, apiResponse } from "@/api/objects";
 import Item from "@/components/item";
 
 export default function Catalogo(){
@@ -12,13 +12,17 @@ export default function Catalogo(){
 
     useEffect(() => {
         async function getAllFurnitures() {
-            const res: Response = await api.get<Response>("/furniture");
+            const res: apiResponse = await api.get<apiResponse>("/furniture");
             
-            const data: ListFurniture = res.entities as ListFurniture;
+            if(res && res.typeResponse !== "SUCCESS"){
+                alert(res.message);
+            }else{
+                const data: ListFurniture = res.entities as ListFurniture;
 
-            if(data){
-                setFurnitures(data);
-                setCurrentFurnitures(data);
+                if(data){
+                    setFurnitures(data);
+                    setCurrentFurnitures(data);
+                }
             }
         }
 

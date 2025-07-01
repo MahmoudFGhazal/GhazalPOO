@@ -24,7 +24,7 @@ public class ReviewController {
 
     @PutMapping
     public ResponseEntity putReview(@RequestBody Review review){
-
+        System.out.println(review.getId() + " e " + review.getFurniture().getId() +  " e " + review.getUser().getId());
         FacadeRequest facadeRequest = new FacadeRequest();
         facadeRequest.setEntity(review);
         facadeRequest.setTypeRequest(TypeRequest.PUT);

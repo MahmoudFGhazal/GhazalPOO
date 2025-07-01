@@ -50,7 +50,7 @@ CREATE TABLE furnitures (
     fur_depth DECIMAL(8,3) NOT NULL,
     fur_weight DECIMAL(8,3) NOT NULL,
     fur_characteristics VARCHAR(255),
-    fur_image LONGBLOB NOT NULL,
+    fur_image varchar(500) NOT NULL,
     fur_price DECIMAL(10,3) NOT NULL,
     fur_stock INT NOT NULL,
     fur_fut_id INT NOT NULL,
@@ -68,13 +68,8 @@ CREATE TABLE furnitures (
 );
 
 CREATE TABLE reviews (
-<<<<<<< HEAD
-    rev_id INT PRIMARY KEY,
-    rev_ranting DECIMAL(4,2),
-=======
     rev_id INT AUTO_INCREMENT PRIMARY KEY,
     rev_rating DECIMAL(4,2),
->>>>>>> 1ac0a9c (Finalizando)
     rev_comment VARCHAR(255),
     rev_usr_id INT NOT NULL,
     rev_fur_id INT NOT NULL,

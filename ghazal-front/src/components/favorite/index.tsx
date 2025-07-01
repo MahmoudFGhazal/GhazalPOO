@@ -2,9 +2,8 @@ import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { useEffect, useState } from "react";
 
 import styles from "./favorite.module.css";
-import { Furniture, ListFavorite, Response, User } from "@/api/objects";
+import { Furniture, ListFavorite, apiResponse, User } from "@/api/objects";
 import api from "@/api/route";
-import Cookies from "js-cookie";
 import { verifySession } from "@/services/session";
 
 export default function Favorite({id, size}: {id: number, size: number}){
@@ -12,10 +11,10 @@ export default function Favorite({id, size}: {id: number, size: number}){
 
     useEffect(() => {
         async function getFavorite(){
-            const cookie = Cookies.get('session');
-            if(cookie){
-                const user: User = await verifySession();
-                const res: Response = await api.get<Response>(`/favorite/user/${user.id}`);
+            const user: User = await verifySession();
+
+            if(user){
+                const res: apiResponse = await api.get<apiResponse>(`/favorite/user/${user.id}`);
                 const data: ListFavorite = res.entities as ListFavorite;
                 const favorite = data[0];
 
@@ -26,26 +25,25 @@ export default function Favorite({id, size}: {id: number, size: number}){
                     }
                 }
                 setFavoriteIcon(false);
-            }
+            } 
         }
     
         getFavorite();
     }, []);
 
     async function deleteFavorite(){
-        const cookie = Cookies.get('session');
-        if(cookie){
-            const user: User = await verifySession();
+        const user: User = await verifySession();
+
+        if(user){
             await api.delete(`/favorite/${user.id}/${id}`);
         }
     }
 
     async function addFavorite(){
-        const cookie = Cookies.get('session');
-        if(cookie){
             const user: User = await verifySession();
-            await api.post(`/favorite/${user.id}/${id}`);
-        }
+            if(user){
+                await api.post(`/favorite/${user.id}/${id}`);
+            }
     }
 
     async function handleClick() {

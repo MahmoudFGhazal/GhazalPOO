@@ -34,11 +34,11 @@ public class ReviewControllerTest {
         furniture.setId(1);
 
         Review review = new Review();
-        review.setRating(3.0);
-        review.setComment("oi");
+        review.setRating(2.0);
+        review.setComment("o33i");
         review.setUser(user);
         review.setFurniture(furniture);
-
+        
         //Act
         ResponseEntity<?> response = controller.putReview(review);
         

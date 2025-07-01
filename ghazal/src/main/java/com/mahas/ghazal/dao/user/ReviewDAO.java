@@ -15,12 +15,14 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 
 @Component
 public class ReviewDAO implements IDAO{
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional
     @Override
     public Boolean save(DomainEntity entity){
         if(!(entity instanceof Review)){
@@ -28,9 +30,10 @@ public class ReviewDAO implements IDAO{
         }
 
         Review review = (Review) entity;
+        System.out.println(review.getId() + " e " + review.getUser().getId() + " e " + review.getRating() + " e " + review.getFurniture().getId());
         if(review.getRating() != null && review.getComment() != null && review.getFurniture() != null && review.getUser() != null){
             String sql = "INSERT INTO reviews (rev_rating, rev_comment, rev_usr_id, rev_fur_id) VALUES (:rating, :comment, :user, :furniture);";
-                
+            
             Query putUser = entityManager.createNativeQuery(sql);
             putUser.setParameter("rating", review.getRating());
             putUser.setParameter("comment", review.getComment());
@@ -47,6 +50,7 @@ public class ReviewDAO implements IDAO{
         return false;
     }
 
+    @Transactional
     @Override
     public Boolean update(DomainEntity entity){
         if(!(entity instanceof Review)){
@@ -54,6 +58,7 @@ public class ReviewDAO implements IDAO{
         }
 
         Review review = (Review) entity;
+        System.out.println(review.getId() + " e " + review.getUser().getId() + " e " + review.getRating() + " e " + review.getFurniture().getId());
         if(review.getRating() != null && review.getComment() != null && review.getFurniture() != null && review.getUser() != null){
             String sql = "UPDATE reviews SET rev_rating = :rating, rev_comment = :comment WHERE rev_usr_id = :user AND rev_fur_id = :furniture";
                 

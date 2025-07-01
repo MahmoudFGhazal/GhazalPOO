@@ -41,7 +41,7 @@ public class Furniture extends DomainEntity {
     private String characteristics;
 
     @Column(name = "fur_image", columnDefinition = "LONGBLOB")
-    private byte[] image;
+    private String image;
 
     @Column(name = "fur_price")
     private Double price;
