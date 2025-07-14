@@ -1,0 +1,13 @@
+.pointer{
+    user-select: none;
+    border-radius:16px;
+    padding: 2px 5px;
+    transition: all 0.2s;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.pointer:hover {
+    transform: scale(1.05);
+    background-color: rgba(224, 224, 224, 0.5);
+}

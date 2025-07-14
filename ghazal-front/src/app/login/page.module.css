@@ -1,0 +1,36 @@
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 100px;
+}
+
+.button{
+    width: 50%;
+    height: 40px;
+    font-size: 16px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: none;
+    transition: background-color 1s;
+    cursor: pointer;
+}
+
+.signInLink{
+    width: 50vw;
+    max-width: 350px;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.signIn{
+    background-color: #bcbec0;
+    color: #000000;
+}
+
+.signIn:hover{
+    background-color: #d8d8d8;
+}

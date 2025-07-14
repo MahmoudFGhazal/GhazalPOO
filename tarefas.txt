@@ -1,0 +1,26 @@
+Ajeitar as enitity
+    (strategy = GenerationType.AUTO)
+    not null/cascade?
+
+
+ghazal:
+color simples
+sistemas de exceptions
+
+Entender Cookies
+Entender o Session
+Colocar o verificar session em outro lugar
+
+Criar algum lugar pra receber o session-changed
+arrumar os nomes dos container/content
+Sistema de rating total
+melhorar a reativadade
+organizar ordem dos styles
+deixar a image preto e branco se n tiver estoque
+colocar regras de negocio como algo vazio
+não deixar a pagina reiniciar depois que enviar o form de review
+colcoar reatividade nas estreals
+segurança
+filtro
+poder deixar a senha visivel
+mostrar os alerts antes de redirecionar
