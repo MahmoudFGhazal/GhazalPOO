@@ -62,6 +62,4 @@ INSERT INTO furnitures_materials (fma_mat_id, fma_fur_id) VALUES
 insert into users (usr_email, usr_password, usr_name, usr_cpf) values 
 	("admin@gmail.com", "1234", "Admin", "123.456.789-90");
 
-insert into favorites (fav_usr_id) values (1);
-
-insert into favorites_furnitures (far_fav_id, far_fur_id) values (1, 3), (1,5);
+insert into favorites (fav_usr_id, fav_fur_id) values (1, 3), (1,5);

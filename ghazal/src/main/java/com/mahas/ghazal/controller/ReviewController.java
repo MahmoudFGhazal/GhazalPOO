@@ -14,7 +14,7 @@ import com.mahas.ghazal.domain.FacadeRequest;
 import com.mahas.ghazal.domain.FacadeResponse;
 import com.mahas.ghazal.domain.TypeRequest;
 import com.mahas.ghazal.domain.furniture.Furniture;
-import com.mahas.ghazal.domain.user.Review;
+import com.mahas.ghazal.domain.user.review.Review;
 import com.mahas.ghazal.facade.Facade;
 
 @Controller
@@ -28,10 +28,6 @@ public class ReviewController {
     @PutMapping
     public ResponseEntity putReview(@RequestBody Review review){
         FacadeRequest facadeRequest = new FacadeRequest();
-
-        if(review.getId() == 0){
-            review.setId(null);
-        }
 
         facadeRequest.setEntity(review);
         facadeRequest.setTypeRequest(TypeRequest.PUT);

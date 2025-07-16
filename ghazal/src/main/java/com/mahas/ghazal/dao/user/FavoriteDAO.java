@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import com.mahas.ghazal.dao.IDAO;
 import com.mahas.ghazal.domain.DomainEntity;
 import com.mahas.ghazal.domain.furniture.Furniture;
-import com.mahas.ghazal.domain.user.Favorite;
 import com.mahas.ghazal.domain.user.User;
+import com.mahas.ghazal.domain.user.favorite.Favorite;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -33,10 +33,10 @@ public class FavoriteDAO implements IDAO{
 
         Favorite favorite = (Favorite) entity;
         User user = (User) favorite.getUser();
-        Furniture furniture = (Furniture) favorite.getFurnitures().iterator().next();
+        Furniture furniture = (Furniture) favorite.getFurniture();
     
         if(user.getId() != null && furniture.getId() != null){
-            String sql = "INSERT INTO favorites_furnitures (far_fav_id, far_fur_id) VALUES (:userId, :furnitureId)";
+            String sql = "INSERT INTO favorites (fav_usr_id, fav_fur_id) VALUES (:userId, :furnitureId)";
             
             Query putFavorite = entityManager.createNativeQuery(sql);
             putFavorite.setParameter("userId", user.getId());
@@ -61,10 +61,10 @@ public class FavoriteDAO implements IDAO{
 
         Favorite favorite = (Favorite) entity;
         User user = (User) favorite.getUser();
-        Furniture furniture = (Furniture) favorite.getFurnitures().iterator().next();
+        Furniture furniture = (Furniture) favorite.getFurniture();
 
         if(user.getId() != null && furniture.getId() != null){
-            String sql = "DELETE FROM favorites_furnitures WHERE far_fav_id = :userId AND far_fur_id = :furnitureId;";
+            String sql = "DELETE FROM favorites WHERE fav_usr_id = :userId AND fav_fur_id = :furnitureId;";
             
             Query deleteFavorite = entityManager.createNativeQuery(sql);
             deleteFavorite.setParameter("userId", user.getId());
@@ -90,13 +90,13 @@ public class FavoriteDAO implements IDAO{
         StringBuilder jpql = new StringBuilder("SELECT f FROM Favorite f where 1=1");
         Map<String, Object> parameters = new HashMap<>();
 
-        if(favorite.getId() != null){
-            jpql.append(" AND f.id = :id");
-            parameters.put("id", favorite.getId());
-        }
         if(favorite.getUser() != null){
             jpql.append(" AND f.user = :user");
             parameters.put("user", favorite.getUser());
+        }
+        if(favorite.getFurniture() != null){
+            jpql.append(" AND f.furniture = :furniture");
+            parameters.put("furniture", favorite.getFurniture());
         }
     
     

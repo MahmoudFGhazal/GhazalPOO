@@ -56,13 +56,11 @@ export interface User {
 }
 
 export interface Favorite {
-    id: number,
     user: User,
     furnitures: Furniture[],
 }
 
 export interface Review {
-    id: number,
     rating: number,
     comment: string,
     user: User,

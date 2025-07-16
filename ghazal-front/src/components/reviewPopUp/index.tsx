@@ -37,7 +37,6 @@ export default function ReviewPopUp({furniture}: {furniture: Furniture}){
 
         if(user){
             const review: Review = {
-                id: 0,
                 rating: rating,
                 comment: comment,
                 user: user,

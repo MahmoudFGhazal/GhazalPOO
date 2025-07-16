@@ -1,6 +1,7 @@
 package com.mahas.ghazal.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -13,10 +14,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Commit;
 
+import com.mahas.ghazal.domain.DomainEntity;
 import com.mahas.ghazal.domain.FacadeResponse;
 import com.mahas.ghazal.domain.furniture.Furniture;
-import com.mahas.ghazal.domain.user.Review;
 import com.mahas.ghazal.domain.user.User;
+import com.mahas.ghazal.domain.user.review.Review;
 
 import jakarta.transaction.Transactional;
 
@@ -67,14 +69,17 @@ public class ReviewControllerTest {
         assertTrue(body instanceof FacadeResponse, "corpo precisa ser uma resposta");
         FacadeResponse facadeResponse = (FacadeResponse) body;
 
-        assertTrue(facadeResponse.getEntities() instanceof List, "corpo deve ser uma lista");
-        List<?> list = (List<?>) facadeResponse.getEntities();
+        List<DomainEntity> entities = facadeResponse.getEntities();
+        assertFalse(entities.isEmpty(), "A lista de entidades não pode estar vazia");
+        assertTrue(entities.get(0) instanceof Review);
 
-        if(!list.isEmpty()){       
-            for(Object item : list){
-                assertTrue(item instanceof Review, "Todos os itens devem ser instâncias de Furniture");
-                System.out.println(item.getClass());
-            }
+        List<Review> reviews = entities.stream()
+                                    .filter(Review.class::isInstance)
+                                    .map(Review.class::cast)
+                                    .toList();
+
+        for(Review r : reviews){
+            System.out.println("Movel: " + r.getFurniture().getId() +  "\nUsuario: " + r.getUser().getId() + "\nRating: " + r.getRating());
         }
 
     } 

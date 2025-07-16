@@ -18,8 +18,8 @@ import com.mahas.ghazal.domain.FacadeRequest;
 import com.mahas.ghazal.domain.FacadeResponse;
 import com.mahas.ghazal.domain.TypeRequest;
 import com.mahas.ghazal.domain.furniture.Furniture;
-import com.mahas.ghazal.domain.user.Favorite;
 import com.mahas.ghazal.domain.user.User;
+import com.mahas.ghazal.domain.user.favorite.Favorite;
 import com.mahas.ghazal.domain.furniture.Category;
 
 @SpringBootTest
@@ -70,12 +70,9 @@ public class FacadeTest {
         Furniture furniture = new Furniture();
         furniture.setId(3);
 
-        Set<Furniture> furnitures = new HashSet<>();
-        furnitures.add(furniture);
-        
         Favorite favorite = new Favorite();
         favorite.setUser(user);
-        favorite.setFurnitures(furnitures);
+        favorite.setFurniture(furniture);
 
         FacadeRequest request = new FacadeRequest();
         request.setEntity(favorite);

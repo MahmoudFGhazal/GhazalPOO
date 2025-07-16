@@ -1,17 +1,9 @@
 -- Gerado por Oracle SQL Developer Data Modeler 24.3.1.351.0831
---   em:        2025-06-15 20:26:56 BRT
---   site:      Oracle Database 12c
---   tipo:      Oracle Database 12c
+--   em:        2025-07-15 11:58:24 BRT
+--   site:      Oracle Database 21c
+--   tipo:      Oracle Database 21c
 
 
-
---  CREATE DATABASE IF 
- --     CONTROLFILE REUSE
- --     MAXLOGFILES 1 
- --     MAXLOGMEMBERS 1 
- --     MAXLOGHISTORY 0 
- --     MAXDATAFILES 10 
- --     MAXINSTANCES 1
 
 -- predefined type, no DDL - MDSYS.SDO_GEOMETRY
 
@@ -43,28 +35,18 @@ ALTER TABLE colors
     ADD CONSTRAINT colors_PK PRIMARY KEY ( col_id ) ;
 
 ALTER TABLE colors 
-    ADD CONSTRAINT INDEX_1 UNIQUE ( col_color ) ;
+    ADD CONSTRAINT INDEX_1v1 UNIQUE ( col_color ) ;
 
 CREATE TABLE favorites 
     ( 
+     far_fur_id INTEGER  NOT NULL , 
      fav_usr_id INTEGER  NOT NULL 
     ) 
     LOGGING 
 ;
 
 ALTER TABLE favorites 
-    ADD CONSTRAINT favorites_PK PRIMARY KEY ( fav_usr_id ) ;
-
-CREATE TABLE favorites_furnitures 
-    ( 
-     far_fur_id INTEGER  NOT NULL , 
-     far_fav_id INTEGER  NOT NULL 
-    ) 
-    LOGGING 
-;
-
-ALTER TABLE favorites_furnitures 
-    ADD CONSTRAINT favorites_furnitures_PK PRIMARY KEY ( far_fur_id, far_fav_id ) ;
+    ADD CONSTRAINT favorites_furnitures_PK PRIMARY KEY ( far_fur_id, fav_usr_id ) ;
 
 CREATE TABLE furniture_types 
     ( 
@@ -78,7 +60,7 @@ ALTER TABLE furniture_types
     ADD CONSTRAINT furniture_types_PK PRIMARY KEY ( fut_id ) ;
 
 ALTER TABLE furniture_types 
-    ADD CONSTRAINT INDEX_1 UNIQUE ( fut_furniture_type ) ;
+    ADD CONSTRAINT INDEX_1v2 UNIQUE ( fut_furniture_type ) ;
 
 CREATE TABLE furnitures 
     ( 
@@ -89,9 +71,7 @@ CREATE TABLE furnitures
      fur_depth           NUMBER (8,3)  NOT NULL , 
      fur_weight          NUMBER (8,3)  NOT NULL , 
      fur_characteristics VARCHAR2 (255) , 
-     fur_image           UNKNOWN 
---  ERROR: Datatype UNKNOWN is not allowed 
-                     NOT NULL , 
+     fur_image           VARCHAR2 (255)  NOT NULL , 
      fur_price           NUMBER (10,3)  NOT NULL , 
      fur_stock           INTEGER  NOT NULL , 
      fur_fut_id          INTEGER  NOT NULL , 
@@ -105,7 +85,7 @@ ALTER TABLE furnitures
     ADD CONSTRAINT furnitures_PK PRIMARY KEY ( fur_id ) ;
 
 ALTER TABLE furnitures 
-    ADD CONSTRAINT INDEX_1 UNIQUE ( fur_model ) ;
+    ADD CONSTRAINT INDEX_1v3 UNIQUE ( fur_model ) ;
 
 CREATE TABLE furnitures_categories 
     ( 
@@ -129,21 +109,6 @@ CREATE TABLE furnitures_materials
 ALTER TABLE furnitures_materials 
     ADD CONSTRAINT furnitures_materials_PK PRIMARY KEY ( fma_fur_id, fma_mat_id ) ;
 
-CREATE TABLE low_price 
-    ( 
-     lop_id            INTEGER  NOT NULL , 
-     lop_active        CHAR (1)  NOT NULL , 
-     lop_value         NUMBER (4,3)  NOT NULL , 
-     lop_start_day     DATE  NOT NULL , 
-     lop_final_day     DATE  NOT NULL , 
-     furnitures_fur_id INTEGER  NOT NULL 
-    ) 
-    LOGGING 
-;
-
-ALTER TABLE low_price 
-    ADD CONSTRAINT promotions_PK PRIMARY KEY ( lop_id ) ;
-
 CREATE TABLE manufacturers 
     ( 
      man_id           INTEGER  NOT NULL , 
@@ -156,7 +121,7 @@ ALTER TABLE manufacturers
     ADD CONSTRAINT manufacturers_PK PRIMARY KEY ( man_id ) ;
 
 ALTER TABLE manufacturers 
-    ADD CONSTRAINT INDEX_1 UNIQUE ( man_manufacturer ) ;
+    ADD CONSTRAINT INDEX_1v4 UNIQUE ( man_manufacturer ) ;
 
 CREATE TABLE materials 
     ( 
@@ -170,16 +135,27 @@ ALTER TABLE materials
     ADD CONSTRAINT materials_PK PRIMARY KEY ( mat_id ) ;
 
 ALTER TABLE materials 
-    ADD CONSTRAINT INDEX_1 UNIQUE ( mat_material ) ;
+    ADD CONSTRAINT INDEX_1v5 UNIQUE ( mat_material ) ;
+
+CREATE TABLE reviews 
+    ( 
+     users_usr_id      INTEGER  NOT NULL , 
+     furnitures_fur_id INTEGER  NOT NULL , 
+     rev_comment       VARCHAR2 (255) , 
+     rev_rating        NUMBER (4,2)  NOT NULL 
+    ) 
+    LOGGING 
+;
+
+ALTER TABLE reviews 
+    ADD CONSTRAINT reviews_PK PRIMARY KEY ( users_usr_id, furnitures_fur_id ) ;
 
 CREATE TABLE users 
     ( 
      usr_id       INTEGER  NOT NULL , 
      usr_email    VARCHAR2 (100)  NOT NULL , 
      usr_password VARCHAR2 (100)  NOT NULL , 
-     usr_birthday UNKNOWN 
---  ERROR: Datatype UNKNOWN is not allowed 
-                    , 
+     usr_name     VARCHAR2 (100) , 
      usr_cpf      CHAR (15)  NOT NULL 
     ) 
     LOGGING 
@@ -189,23 +165,10 @@ ALTER TABLE users
     ADD CONSTRAINT users_PK PRIMARY KEY ( usr_id ) ;
 
 ALTER TABLE users 
-    ADD CONSTRAINT INDEX_1 UNIQUE ( usr_email ) ;
+    ADD CONSTRAINT INDEX_1v6 UNIQUE ( usr_email ) ;
 
-ALTER TABLE favorites_furnitures 
-    ADD CONSTRAINT fk_far_fav FOREIGN KEY 
-    ( 
-     far_fav_id
-    ) 
-    REFERENCES favorites 
-    ( 
-     fav_usr_id
-    ) 
-    ON DELETE CASCADE 
-    NOT DEFERRABLE 
-;
-
-ALTER TABLE favorites_furnitures 
-    ADD CONSTRAINT fk_far_fur FOREIGN KEY 
+ALTER TABLE favorites 
+    ADD CONSTRAINT fk_fav_fur FOREIGN KEY 
     ( 
      far_fur_id
     ) 
@@ -226,7 +189,6 @@ ALTER TABLE favorites
     ( 
      usr_id
     ) 
-    ON DELETE CASCADE 
     NOT DEFERRABLE 
 ;
 
@@ -318,8 +280,8 @@ ALTER TABLE furnitures
     NOT DEFERRABLE 
 ;
 
-ALTER TABLE low_price 
-    ADD CONSTRAINT low_price_furnitures_FK FOREIGN KEY 
+ALTER TABLE reviews 
+    ADD CONSTRAINT fk_rev_fur FOREIGN KEY 
     ( 
      furnitures_fur_id
     ) 
@@ -330,13 +292,25 @@ ALTER TABLE low_price
     NOT DEFERRABLE 
 ;
 
+ALTER TABLE reviews 
+    ADD CONSTRAINT fk_rev_usr FOREIGN KEY 
+    ( 
+     users_usr_id
+    ) 
+    REFERENCES users 
+    ( 
+     usr_id
+    ) 
+    NOT DEFERRABLE 
+;
+
 
 
 -- Relatório do Resumo do Oracle SQL Developer Data Modeler: 
 -- 
--- CREATE TABLE                            12
+-- CREATE TABLE                            11
 -- CREATE INDEX                             0
--- ALTER TABLE                             30
+-- ALTER TABLE                             29
 -- CREATE VIEW                              0
 -- ALTER VIEW                               0
 -- CREATE PACKAGE                           0
@@ -350,7 +324,7 @@ ALTER TABLE low_price
 -- CREATE STRUCTURED TYPE BODY              0
 -- CREATE CLUSTER                           0
 -- CREATE CONTEXT                           0
--- CREATE DATABASE                          1
+-- CREATE DATABASE                          0
 -- CREATE DIMENSION                         0
 -- CREATE DIRECTORY                         0
 -- CREATE DISK GROUP                        0
@@ -367,11 +341,10 @@ ALTER TABLE low_price
 -- DROP DATABASE                            0
 -- 
 -- REDACTION POLICY                         0
--- TSDP POLICY                              0
 -- 
 -- ORDS DROP SCHEMA                         0
 -- ORDS ENABLE SCHEMA                       0
 -- ORDS ENABLE OBJECT                       0
 -- 
--- ERRORS                                   2
+-- ERRORS                                   0
 -- WARNINGS                                 0

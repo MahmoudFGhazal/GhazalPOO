@@ -24,3 +24,4 @@ segurança
 filtro
 poder deixar a senha visivel
 mostrar os alerts antes de redirecionar
+ver se já existe no insert

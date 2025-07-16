@@ -17,9 +17,9 @@ import com.mahas.ghazal.domain.FacadeRequest;
 import com.mahas.ghazal.domain.FacadeResponse;
 import com.mahas.ghazal.domain.TypeResponse;
 import com.mahas.ghazal.domain.furniture.Furniture;
-import com.mahas.ghazal.domain.user.Favorite;
-import com.mahas.ghazal.domain.user.Review;
 import com.mahas.ghazal.domain.user.User;
+import com.mahas.ghazal.domain.user.favorite.Favorite;
+import com.mahas.ghazal.domain.user.review.Review;
 
 import jakarta.annotation.PostConstruct;
 

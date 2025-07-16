@@ -1,8 +1,5 @@
 package com.mahas.ghazal.controller;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,8 +14,8 @@ import com.mahas.ghazal.domain.FacadeRequest;
 import com.mahas.ghazal.domain.FacadeResponse;
 import com.mahas.ghazal.domain.TypeRequest;
 import com.mahas.ghazal.domain.furniture.Furniture;
-import com.mahas.ghazal.domain.user.Favorite;
 import com.mahas.ghazal.domain.user.User;
+import com.mahas.ghazal.domain.user.favorite.Favorite;
 import com.mahas.ghazal.facade.Facade;
 
 @Controller
@@ -53,13 +50,10 @@ public class FavoriteController {
 
         Furniture furniture = new Furniture();
         furniture.setId(fur_id);
-
-        Set<Furniture> furnitures = new HashSet<>();
-        furnitures.add(furniture);
         
         Favorite favorite = new Favorite();
         favorite.setUser(user);
-        favorite.setFurnitures(furnitures);
+        favorite.setFurniture(furniture);
 
         FacadeRequest facadeRequest = new FacadeRequest();
         facadeRequest.setEntity(favorite);
@@ -78,12 +72,9 @@ public class FavoriteController {
         Furniture furniture = new Furniture();
         furniture.setId(fur_id);
 
-        Set<Furniture> furnitures = new HashSet<>();
-        furnitures.add(furniture);
-        
         Favorite favorite = new Favorite();
         favorite.setUser(user);
-        favorite.setFurnitures(furnitures);
+        favorite.setFurniture(furniture);
         
         FacadeRequest facadeRequest = new FacadeRequest();
         facadeRequest.setEntity(favorite);

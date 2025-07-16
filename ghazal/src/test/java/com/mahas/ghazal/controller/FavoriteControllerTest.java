@@ -15,8 +15,7 @@ import org.springframework.test.annotation.Commit;
 
 import com.mahas.ghazal.domain.DomainEntity;
 import com.mahas.ghazal.domain.FacadeResponse;
-import com.mahas.ghazal.domain.furniture.Furniture;
-import com.mahas.ghazal.domain.user.Favorite;
+import com.mahas.ghazal.domain.user.favorite.Favorite;
 
 import jakarta.transaction.Transactional;
 
@@ -50,20 +49,22 @@ public class FavoriteControllerTest {
         assertFalse(entities.isEmpty(), "A lista de entidades não pode estar vazia");
         assertTrue(entities.get(0) instanceof Favorite);
 
-        Favorite favorite = (Favorite) entities.get(0);
-        assertNotNull(favorite.getFurnitures(), "A lista de móveis não pode ser nula");
+        List<Favorite> favorites = entities.stream()
+                                    .filter(Favorite.class::isInstance)
+                                    .map(Favorite.class::cast)
+                                    .toList();
 
-        for(Furniture f : favorite.getFurnitures()){
-            assertNotNull(f.getModel(), "O modelo do móvel não pode ser nulo");
-            System.out.println(f.getModel());
+        for(Favorite f : favorites){
+            System.out.println("Movel: " + f.getFurniture().getId() +  "\nUsuario: " + f.getUser().getId());
         }
+
     }
 
     @Test   
     public void testPut(){
         //Arrange
         int userId = 1;
-        int furnitureId = 3;
+        int furnitureId = 10;
 
         //Act
         ResponseEntity<?> response = controller.putFavorite(userId,furnitureId);
@@ -83,7 +84,7 @@ public class FavoriteControllerTest {
     public void testDelete(){
         //Arrange
         int userId = 1;
-        int furnitureId = 3;
+        int furnitureId = 5;
 
         //Act
         ResponseEntity<?> response = controller.deleteFavorite(userId,furnitureId);

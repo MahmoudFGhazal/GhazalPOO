@@ -34,14 +34,6 @@ CREATE TABLE users (
     usr_cpf VARCHAR(15) UNIQUE
 );
 
-CREATE TABLE favorites (
-    fav_usr_id INT NOT NULL PRIMARY KEY,
-
-    CONSTRAINT fk_fav_usr
-        FOREIGN KEY (fav_usr_id) REFERENCES users(usr_id)
-        ON DELETE CASCADE
-);
-
 CREATE TABLE furnitures (
     fur_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     fur_model VARCHAR(100) NOT NULL UNIQUE,
@@ -50,7 +42,7 @@ CREATE TABLE furnitures (
     fur_depth DECIMAL(8,3) NOT NULL,
     fur_weight DECIMAL(8,3) NOT NULL,
     fur_characteristics VARCHAR(255),
-    fur_image varchar(500) NOT NULL,
+    fur_image varchar(500),
     fur_price DECIMAL(10,3) NOT NULL,
     fur_stock INT NOT NULL,
     fur_fut_id INT NOT NULL,
@@ -68,11 +60,11 @@ CREATE TABLE furnitures (
 );
 
 CREATE TABLE reviews (
-    rev_id INT AUTO_INCREMENT PRIMARY KEY,
     rev_rating DECIMAL(4,2),
     rev_comment VARCHAR(255),
     rev_usr_id INT NOT NULL,
     rev_fur_id INT NOT NULL,
+    PRIMARY KEY (rev_fur_id, rev_usr_id),
 
     CONSTRAINT fk_rev_usr
         FOREIGN KEY (rev_usr_id) REFERENCES users(usr_id)
@@ -83,17 +75,17 @@ CREATE TABLE reviews (
         ON DELETE CASCADE
 );
 
-CREATE TABLE favorites_furnitures (
-    far_fur_id INT NOT NULL,
-    far_fav_id INT NOT NULL,
-    PRIMARY KEY (far_fur_id, far_fav_id),
+CREATE TABLE favorites (
+    fav_fur_id INT NOT NULL,
+    fav_usr_id INT NOT NULL,
+    PRIMARY KEY (fav_fur_id, fav_usr_id),
 
-    CONSTRAINT fk_far_fur
-        FOREIGN KEY (far_fur_id) REFERENCES furnitures(fur_id)
+    CONSTRAINT fk_fav_fur
+        FOREIGN KEY (fav_fur_id) REFERENCES furnitures(fur_id)
         ON DELETE CASCADE,
 
-    CONSTRAINT fk_far_fav
-        FOREIGN KEY (far_fav_id) REFERENCES favorites(fav_usr_id)
+    CONSTRAINT fk_fav_usr
+        FOREIGN KEY (fav_usr_id) REFERENCES users(usr_id)
         ON DELETE CASCADE
 );
 

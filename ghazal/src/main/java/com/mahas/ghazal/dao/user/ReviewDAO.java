@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.mahas.ghazal.dao.IDAO;
 import com.mahas.ghazal.domain.DomainEntity;
-import com.mahas.ghazal.domain.user.Review;
+import com.mahas.ghazal.domain.user.review.Review;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -30,7 +30,7 @@ public class ReviewDAO implements IDAO{
         }
 
         Review review = (Review) entity;
-        System.out.println(review.getId() + " e " + review.getUser().getId() + " e " + review.getRating() + " e " + review.getFurniture().getId());
+
         if(review.getRating() != null && review.getComment() != null && review.getFurniture() != null && review.getUser() != null){
             String sql = "INSERT INTO reviews (rev_rating, rev_comment, rev_usr_id, rev_fur_id) VALUES (:rating, :comment, :user, :furniture);";
             
@@ -58,17 +58,18 @@ public class ReviewDAO implements IDAO{
         }
 
         Review review = (Review) entity;
-        System.out.println(review.getId() + " e " + review.getUser().getId() + " e " + review.getRating() + " e " + review.getFurniture().getId());
+
         if(review.getRating() != null && review.getComment() != null && review.getFurniture() != null && review.getUser() != null){
             String sql = "UPDATE reviews SET rev_rating = :rating, rev_comment = :comment WHERE rev_usr_id = :user AND rev_fur_id = :furniture";
                 
-            Query putUser = entityManager.createNativeQuery(sql);
-            putUser.setParameter("rating", review.getRating());
-            putUser.setParameter("comment", review.getComment());
-            putUser.setParameter("user", review.getUser().getId());
-            putUser.setParameter("furniture", review.getFurniture().getId());
+            Query putReview = entityManager.createNativeQuery(sql);
+            putReview.setParameter("rating", review.getRating());
+            putReview.setParameter("comment", review.getComment());
+            putReview.setParameter("user", review.getUser().getId());
+            putReview.setParameter("furniture", review.getFurniture().getId());
 
-            int result = putUser.executeUpdate();
+            System.out.println(putReview);
+            int result = putReview.executeUpdate();
             entityManager.flush();
             entityManager.clear();
 
@@ -88,10 +89,6 @@ public class ReviewDAO implements IDAO{
         StringBuilder jpql = new StringBuilder("SELECT r FROM Review r where 1=1");
         Map<String, Object> parameters = new HashMap<>();
 
-        if(review.getId() != null){
-            jpql.append(" AND r.id = :id");
-            parameters.put("id", review.getId());
-        }
         if(review.getUser() != null){
             jpql.append(" AND r.user = :user");
             parameters.put("user", review.getUser());
